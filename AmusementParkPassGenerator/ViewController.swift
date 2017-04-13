@@ -12,9 +12,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let person = Guest(type: .vip, firstName: "Taylor", lastName: "Smith", address: "", city: "", state: "", zip: "", age: 29)
         
-        print(person.merchDiscount)
+        
+        do {
+        try Employee(firstName: nil, lastName: nil, address: "1232", city: "HB", state: "CA", zip: 92648)
+        
+        } catch UserError.missingFullName  {
+            print("Please enter your full name")
+        } catch {
+            print(error)
+        }
+        
+        do {
+            
+            try Employee(firstName: "name", lastName: "name", address: "12", city: "HB", state: nil, zip: 9298)
+        } catch UserError.missingFullAddress {
+            
+            print("Please provide your full address.")
+        } catch {
+            
+            print(error)
+        }
         
         
         

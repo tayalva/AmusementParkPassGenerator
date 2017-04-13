@@ -10,12 +10,7 @@ import Foundation
 
 class Guest: Visitor, Discount {
     
-    let firstName: String
-    let lastName: String
-    let address: String?
-    let city: String?
-    let state: String?
-    let zip: String?
+
     let age: Int?
     let type: GuestType
     let areaAccess: [EntrantAccess]
@@ -24,14 +19,8 @@ class Guest: Visitor, Discount {
     let frontOfLinePass: Bool
     
     
-    init(type: GuestType, firstName: String, lastName: String, address: String?, city: String?, state: String?, zip: String?, age: Int?){
+    init(type: GuestType, age: Int?) throws {
         
-        self.firstName = firstName
-        self.lastName = lastName
-        self.address = address
-        self.city = city
-        self.state = state
-        self.zip = zip
         self.age = age
         self.type = type
         
@@ -40,7 +29,7 @@ class Guest: Visitor, Discount {
         switch type {
             
         case .classic:
-            
+           
             self.areaAccess = [EntrantAccess.amusementArea]
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
