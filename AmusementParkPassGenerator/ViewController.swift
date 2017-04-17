@@ -59,6 +59,8 @@ class ViewController: UIViewController {
         do {
             
             try Guest(type: .vip, birthday: nil)
+            print(rideControlAreaAcess(PassCreator(entrant: .employeeRideServicePass)))
+            
             
             
         } catch { print(error) }

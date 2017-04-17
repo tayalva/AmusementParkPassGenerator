@@ -12,13 +12,31 @@ import Foundation
 
     
 func kitchenAreaAccess(_ pass: PassCreator) -> Bool {
+    for access in pass.areaAccess {
         
-        if pass.areaAccess != [EntrantAccess.kitchenArea] {
+        if access == EntrantAccess.kitchenArea {
             
-            return false
+            print("Access Granted")
+            
+            return true
         }
+        }
+    
+    print("Access Denied")
+        return false
+}
+
+func rideControlAreaAcess(_ pass: PassCreator) -> Bool {
+    
+    for access in pass.areaAccess {
         
-        return true
+        if access == EntrantAccess.rideControl {
+            
+            return true
+        }
+    }
+    
+    return false
 }
 
 
