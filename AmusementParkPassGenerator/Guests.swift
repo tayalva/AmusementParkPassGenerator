@@ -8,49 +8,75 @@
 
 import Foundation
 
-class Guest: Visitor, Discount {
+class Guest: Visitor {
     
 
-    let age: Int?
-    let type: GuestType
+    let birthday: String?
+    var type: GuestType
     let areaAccess: [EntrantAccess]
-    let foodDiscount: Double
-    let merchDiscount: Double
-    let frontOfLinePass: Bool
+
+
     
-    
-    init(type: GuestType, age: Int?) throws {
+    init(type: GuestType, birthday: String?) throws {
         
-        self.age = age
+        self.birthday = birthday
         self.type = type
+
         
-        
+        func isYoungerThan5() -> Bool  {
+            let myFormatter = DateFormatter()
+            let calendar = Calendar.current
+            let currentDate = Date()
+            myFormatter.dateFormat = "MM/dd/yyy"
+            let formattedBirthday = myFormatter.date(from: birthday!)
+            let days = calendar.dateComponents([.day], from: formattedBirthday!, to: currentDate)
+            let age = Double(days.day!) / 365
+            if age <= 5.0 {
+                return true
+            } else {
+                return false
+                
+            }
+        }
         
         switch type {
             
         case .classic:
            
             self.areaAccess = [EntrantAccess.amusementArea]
-            self.foodDiscount = 0.0
-            self.merchDiscount = 0.0
-            self.frontOfLinePass = false
+          
+            
+            if isYoungerThan5() == true {
+                self.type = .child
+                
+            } else { self.type = .classic }
             
         case .child:
             
             self.areaAccess = [EntrantAccess.amusementArea]
-            self.foodDiscount = 0.0
-            self.merchDiscount = 0.0
-            self.frontOfLinePass = false
+    
+            guard let birthday = birthday else { throw UserError.missingBirthday }
+            
+            if isYoungerThan5() {
+                self.type = .child
+                
+            } else {
+                
+                self.type = .classic
+                throw UserError.guestIsOlderThan5 }
+            
             
             
         case .vip:
             self.areaAccess = [EntrantAccess.amusementArea]
-            self.frontOfLinePass = true
-            self.foodDiscount = 0.10
-            self.merchDiscount = 0.20
+       
             
+        
             
         }
         
+      
     }
+    
+    
 }

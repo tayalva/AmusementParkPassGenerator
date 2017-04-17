@@ -10,17 +10,23 @@ import Foundation
 
 // Enums for types
 
-enum EntrantAccess {
+enum EntrantAccess: String {
     
-    case amusementArea
-    case kitchenArea
-    case rideControl
-    case maintenance
-    case office
+    case amusementArea = "Amusement Areas"
+    case kitchenArea = "Kitchen Areas"
+    case rideControl = "Ride Control Areas"
+    case maintenance = "Maintenance Areas"
+    case office = "Office Areas"
     
    static let allAreas = [amusementArea, kitchenArea, rideControl, maintenance, office]
 }
 
+enum RideAccess: String {
+    
+    case accessAllRides = "Ride Access: All"
+    case frontOfLinePass = "VIP Front Of The Line Pass"
+    
+}
 
 enum GuestType {
     
@@ -39,11 +45,24 @@ enum EmployeeType {
     
 }
 
+enum EntrantType: String {
+    
+    case classicGuestPass = "Classic Guest Pass"
+    case childGuestPass = "Child Guest Pass"
+    case vipGuestPass = "VIP Guest Pass"
+    case employeeFoodServicePass = "Food Service Employee Pass"
+    case employeeRideServicePass = "Ride Service Employee Pass"
+    case employeeMaintenancePass = "Maintenance Employee Pass"
+    case employeeManagerPass = "Manager Employee Pass"
+    
+}
+
 enum UserError: Error {
     
     case missingFullName
     case missingFullAddress
     case missingBirthday
+    case guestIsOlderThan5
 
 }
 
@@ -77,5 +96,31 @@ protocol Discount {
 }
 
 
+// Swipe Method
+
+/*
+func swipePass() {
+
+    switch GuestType {
+        
+        case .classic:
+        
+        print("classic guest")
+        
+    case .child:
+        
+        print("child guest")
+        
+    case .vip:
+        print("vip guest")
+        
+        
+    }
+    
+ 
+}
+
+
+*/
 
 
