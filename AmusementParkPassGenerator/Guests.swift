@@ -21,6 +21,29 @@ class Guest: Visitor {
         
         self.birthday = birthday
         self.type = type
+        
+        func isTheirBirthday() -> Bool {
+            
+            let myFormatter = DateFormatter()
+            let calendar = Calendar.current
+            let currentDate = Date()
+            myFormatter.dateFormat = "MM/dd"
+            let formattedBirthday = myFormatter.date(from: birthday!)
+            let days = calendar.dateComponents([.day], from: formattedBirthday!, to: currentDate)
+            let age = days.day!
+            
+            if age % 365 == 0 {
+                
+                print("Happy Birthday!")
+                return true
+                
+            } else {
+                
+                print("tis not your birthday")
+                return false }
+
+            
+        }
 
         
         func isYoungerThan5() -> Bool  {

@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         }
         */
         
-        /*
+        
         do {
             try Guest(type: .child, birthday: nil)
             
@@ -55,11 +55,11 @@ class ViewController: UIViewController {
             print(error)
         }
         
- */
+
         do {
             
             try Guest(type: .vip, birthday: nil)
-            print(rideControlAreaAcess(PassCreator(entrant: .employeeRideServicePass)))
+            print(OfficeAreaKiosk(PassCreator(entrant: .employeeManagerPass)))
             
             
             

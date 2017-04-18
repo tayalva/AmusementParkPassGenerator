@@ -96,31 +96,6 @@ protocol Discount {
 }
 
 
-// Swipe Method
 
-/*
-func swipePass() {
-
-    switch GuestType {
-        
-        case .classic:
-        
-        print("classic guest")
-        
-    case .child:
-        
-        print("child guest")
-        
-    case .vip:
-        print("vip guest")
-        
-        
-    }
-    
- 
-}
-
-
-*/
 
 
