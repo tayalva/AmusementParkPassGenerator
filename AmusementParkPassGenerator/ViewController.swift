@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         
         
         do {
-            try Guest(type: .child, birthday: nil)
+            try Guest(type: .child, birthday: "04/20/2000")
             
         } catch UserError.missingBirthday {
             
@@ -56,14 +56,14 @@ class ViewController: UIViewController {
         }
         
 
-        do {
+       // do {
             
-            try Guest(type: .vip, birthday: nil)
-            print(OfficeAreaKiosk(PassCreator(entrant: .employeeManagerPass)))
+          // try Guest(type: .vip, birthday: "04/04/1988")
+            //print(OfficeAreaKiosk(PassCreator(entrant: .employeeManagerPass)))
             
             
             
-        } catch { print(error) }
+       // } catch { print(error) }
 
    // tests to make sure the created information is being displayed for each entrant type
         

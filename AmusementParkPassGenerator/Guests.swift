@@ -27,12 +27,11 @@ class Guest: Visitor {
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
-            myFormatter.dateFormat = "MM/dd"
+            myFormatter.dateFormat = "MM/dd/yyyy"
             let formattedBirthday = myFormatter.date(from: birthday!)
-            let days = calendar.dateComponents([.day], from: formattedBirthday!, to: currentDate)
-            let age = days.day!
-            
-            if age % 365 == 0 {
+            let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
+            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
+            if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
                 
                 print("Happy Birthday!")
                 return true
@@ -40,10 +39,13 @@ class Guest: Visitor {
             } else {
                 
                 print("tis not your birthday")
-                return false }
-
+                return false
+            }
             
         }
+        
+        isTheirBirthday()
+        
 
         
         func isYoungerThan5() -> Bool  {
@@ -52,11 +54,14 @@ class Guest: Visitor {
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyy"
             let formattedBirthday = myFormatter.date(from: birthday!)
-            let days = calendar.dateComponents([.day], from: formattedBirthday!, to: currentDate)
-            let age = Double(days.day!) / 365
-            if age <= 5.0 {
+            let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
+            let age = years.year!
+            if age <= 5 {
+                
+                print("You are under 5!")
                 return true
             } else {
+                print("You're too old!")
                 return false
                 
             }
@@ -92,8 +97,6 @@ class Guest: Visitor {
             
         case .vip:
             self.areaAccess = [EntrantAccess.amusementArea]
-       
-            
         
             
         }
