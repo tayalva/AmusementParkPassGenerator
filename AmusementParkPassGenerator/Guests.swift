@@ -13,7 +13,6 @@ class Guest: Visitor {
 
     let birthday: String?
     var type: GuestType
-    let areaAccess: [EntrantAccess]
 
 
     
@@ -21,14 +20,18 @@ class Guest: Visitor {
         
         self.birthday = birthday
         self.type = type
+ 
+        
+  // method to see if it's the entrant's birthday
+        
         
         func isTheirBirthday() -> Bool {
-            
+            guard let birthday = birthday else { return false }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyyy"
-            let formattedBirthday = myFormatter.date(from: birthday!)
+            let formattedBirthday = myFormatter.date(from: birthday)
             let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
             let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
             if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
@@ -44,16 +47,19 @@ class Guest: Visitor {
             
         }
         
-        isTheirBirthday()
+
+            isTheirBirthday() //for some reason it need to call the function again? weird
         
 
+// method to make ensure the entrant is 5 or under
         
         func isYoungerThan5() -> Bool  {
+            guard let birthday = birthday else { return false }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyy"
-            let formattedBirthday = myFormatter.date(from: birthday!)
+            let formattedBirthday = myFormatter.date(from: birthday)
             let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
             let age = years.year!
             if age <= 5 {
@@ -61,17 +67,18 @@ class Guest: Visitor {
                 print("You are under 5!")
                 return true
             } else {
-                print("You're too old!")
+                
                 return false
                 
             }
+        
+        
         }
         
         switch type {
             
         case .classic:
            
-            self.areaAccess = [EntrantAccess.amusementArea]
           
             
             if isYoungerThan5() == true {
@@ -81,7 +88,6 @@ class Guest: Visitor {
             
         case .child:
             
-            self.areaAccess = [EntrantAccess.amusementArea]
     
             guard let birthday = birthday else { throw UserError.missingBirthday }
             
@@ -96,7 +102,9 @@ class Guest: Visitor {
             
             
         case .vip:
-            self.areaAccess = [EntrantAccess.amusementArea]
+            
+            self.type = .vip
+           
         
             
         }

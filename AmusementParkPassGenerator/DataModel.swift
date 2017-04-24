@@ -18,7 +18,8 @@ enum EntrantAccess: String {
     case maintenance = "Maintenance Areas"
     case office = "Office Areas"
     
-   static let allAreas = [amusementArea, kitchenArea, rideControl, maintenance, office]
+   static let allAreas = [amusementArea.rawValue, kitchenArea.rawValue, rideControl.rawValue, maintenance.rawValue, office.rawValue]
+    
 }
 
 enum RideAccess: String {

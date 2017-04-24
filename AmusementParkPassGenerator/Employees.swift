@@ -13,6 +13,7 @@ class Employee: Worker, Discount {
     
     let firstName: String
     let lastName: String
+    let birthday: String?
     let address: String
     let city: String
     let state: String
@@ -25,7 +26,7 @@ class Employee: Worker, Discount {
     
     
     
-    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: Int?) throws {
+    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: Int?, birthday: String?, employeeType: EmployeeType) throws {
         
         guard let firstName = firstName, let lastName = lastName else { throw UserError.missingFullName }
         
@@ -36,12 +37,43 @@ class Employee: Worker, Discount {
         
         self.firstName = firstName
         self.lastName = lastName
+        self.birthday = birthday
         self.address = address
         self.city = city
         self.state = state
         self.zip = zip
         self.type = .foodServices
-       
+        
+ // method to check if it's the entrant's birthday or not
+        
+        func isTheirBirthday() -> Bool {
+            
+            guard let birthday = birthday else { return false }
+            let myFormatter = DateFormatter()
+            let calendar = Calendar.current
+            let currentDate = Date()
+            myFormatter.dateFormat = "MM/dd/yyyy"
+            let formattedBirthday = myFormatter.date(from: birthday)
+            let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
+            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
+            if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
+                
+                print("Happy Birthday!")
+                return true
+                
+            } else {
+                
+                print("tis not your birthday")
+                return false
+            }
+            
+            
+        }
+        
+        isTheirBirthday() //for some reason it need to call the function again? weird
+        
+    
+// even though this information is also in the PassCreator, I wanted to put it here in case other information need to be store or accessed without a pass
         
         switch type {
         case .foodServices:
@@ -57,7 +89,7 @@ class Employee: Worker, Discount {
             self.foodDiscount = 0.15
             self.merchDiscount = 0.25
         case .manager:
-            self.areaAccess = EntrantAccess.allAreas
+            self.areaAccess = [EntrantAccess.amusementArea]
             self.foodDiscount = 0.25
             self.merchDiscount = 0.25
         }
