@@ -12,6 +12,80 @@ class ViewController: UIViewController {
     
     var reEntry = true
 
+    @IBOutlet weak var employeeView: UIView!
+    @IBOutlet weak var guestView: UIView!
+    @IBOutlet weak var entrantView: UIView!
+    @IBOutlet weak var guestButtonOutlet: UIButton!
+    @IBOutlet weak var employeeButtonOutlet: UIButton!
+    @IBOutlet weak var managerButtonOutlet: UIButton!
+    @IBOutlet weak var vendorButtonOutlet: UIButton!
+    
+    @IBOutlet var mainView: UIView!
+    
+    @IBAction func guestButton(_ sender: Any) {
+        
+
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
+            
+        })
+       
+        
+      
+     
+    }
+ 
+    @IBAction func employeeButton(_ sender: Any) {
+        
+    
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
+            
+        })
+
+       
+
+    }
+    @IBAction func managerButton(_ sender: Any) {
+        
+   
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
+            
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
+            
+        })
+        
+    }
+    @IBAction func vendorButton(_ sender: Any) {
+        
+     
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
+            
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
+            
+        })
+    }
     
     @IBAction func test(_ sender: Any) {
 
@@ -459,6 +533,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.bringSubview(toFront: entrantView)
         
   
 
