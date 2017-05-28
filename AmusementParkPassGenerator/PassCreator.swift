@@ -44,6 +44,23 @@ class PassCreator: Discount {
             self.foodDiscount = 0.10
             self.merchDiscount = 0.20
             
+        case .seniorGuestPass:
+            
+            self.type = EntrantType.seniorGuestPass.rawValue
+            self.areaAccess = [EntrantAccess.amusementArea.rawValue]
+            self.rideAccess = [RideAccess.accessAllRides.rawValue, RideAccess.frontOfLinePass.rawValue]
+            self.foodDiscount = 0.10
+            self.merchDiscount = 0.10
+            
+        case .seasonGuestPass:
+            
+            self.type = EntrantType.seasonGuestPass.rawValue
+            self.areaAccess = [EntrantAccess.amusementArea.rawValue]
+            self.rideAccess = [RideAccess.accessAllRides.rawValue, RideAccess.frontOfLinePass.rawValue]
+            self.foodDiscount = 0.10
+            self.merchDiscount = 0.20
+            
+            
         case .employeeFoodServicePass:
             self.type = EntrantType.employeeFoodServicePass.rawValue
              self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.kitchenArea.rawValue]
@@ -61,7 +78,7 @@ class PassCreator: Discount {
         case .employeeRideServicePass:
             self.type = EntrantType.employeeRideServicePass.rawValue
             self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.rideControl.rawValue]
-             self.rideAccess = [RideAccess.accessAllRides.rawValue]
+            self.rideAccess = [RideAccess.accessAllRides.rawValue]
             self.foodDiscount = 0.15
             self.merchDiscount = 0.25
             
@@ -71,6 +88,23 @@ class PassCreator: Discount {
             self.rideAccess = [RideAccess.accessAllRides.rawValue]
             self.foodDiscount = 0.25
             self.merchDiscount = 0.25
+            
+        case .employeeContractPass:
+            
+            self.type = EntrantType.employeeContractPass.rawValue
+            self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.kitchenArea.rawValue]
+            self.rideAccess = [RideAccess.accessAllRides.rawValue]
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
+            
+        case .vendorPass:
+            
+            self.type = EntrantType.vendorPass.rawValue
+            self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.kitchenArea.rawValue]
+            self.rideAccess = [RideAccess.accessAllRides.rawValue]
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
+            
         }
         
     }

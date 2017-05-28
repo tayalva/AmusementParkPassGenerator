@@ -92,6 +92,12 @@ class Employee: Worker, Discount {
             self.areaAccess = [EntrantAccess.amusementArea]
             self.foodDiscount = 0.25
             self.merchDiscount = 0.25
+            
+        case .contract:
+            self.areaAccess = [EntrantAccess.amusementArea, EntrantAccess.kitchenArea]
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
+            
         }
         
     }

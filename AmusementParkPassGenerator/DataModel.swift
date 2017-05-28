@@ -43,6 +43,13 @@ enum EmployeeType {
     case rideServices
     case maintenance
     case manager
+    case contract
+    
+}
+
+enum Vendor {
+    
+    case vendor
     
 }
 
@@ -51,10 +58,15 @@ enum EntrantType: String {
     case classicGuestPass = "Classic Guest Pass"
     case childGuestPass = "Child Guest Pass"
     case vipGuestPass = "VIP Guest Pass"
+    case seniorGuestPass = "Senior Guest Pass"
+    case seasonGuestPass = "Season Guest Pass"
     case employeeFoodServicePass = "Food Service Employee Pass"
     case employeeRideServicePass = "Ride Service Employee Pass"
     case employeeMaintenancePass = "Maintenance Employee Pass"
     case employeeManagerPass = "Manager Employee Pass"
+    case employeeContractPass = "Contract Employee Pass"
+    case vendorPass = "Vendor Pass"
+    
     
 }
 

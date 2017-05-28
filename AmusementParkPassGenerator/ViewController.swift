@@ -21,71 +21,237 @@ class ViewController: UIViewController {
     @IBOutlet weak var vendorButtonOutlet: UIButton!
     
     @IBOutlet var mainView: UIView!
+    @IBOutlet weak var dobTextBox: UITextField!
+    @IBOutlet weak var dateOfVisitTextBox: UITextField!
+    @IBOutlet weak var projectNumberTextBox: UITextField!
+    @IBOutlet weak var firstNameTextBox: UITextField!
+    @IBOutlet weak var lastNameTextBox: UITextField!
+    @IBOutlet weak var companyTextBox: UITextField!
+    @IBOutlet weak var addressTextBox: UITextField!
+    @IBOutlet weak var cityTextBox: UITextField!
+    @IBOutlet weak var stateTextBox: UITextField!
+    @IBOutlet weak var zipcodeTextBox: UITextField!
     
-    @IBAction func guestButton(_ sender: Any) {
-        
-
-        UIView.animate(withDuration: 0.5, animations: {
-            
-            self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height
-        })
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
-            
-        })
-       
-        
-      
-     
-    }
- 
-    @IBAction func employeeButton(_ sender: Any) {
-        
+    var selectedEntrant: EntrantType = EntrantType.classicGuestPass
     
+    @IBAction func generatePassButton(_ sender: Any) {
         
-        UIView.animate(withDuration: 0.5, animations: {
-            
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height
-        })
+        print(selectedEntrant)
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
+        
+        switch selectedEntrant {
             
-        })
+        case .classicGuestPass:
+            
+            do {
+                
+                try Guest(type: .classic, birthday: dobTextBox.text)
+                
+                print(PassCreator(entrant: .classicGuestPass).type!)
+                print(PassCreator(entrant: .classicGuestPass).rideAccess)
+                print(PassCreator(entrant: .classicGuestPass).areaAccess)
+                print(PassCreator(entrant: .classicGuestPass).foodDiscount)
+                print(PassCreator(entrant: .classicGuestPass).merchDiscount)
+                
+            } catch {}
+            
+        case .vipGuestPass:
+            
+            do {
+                
+                try Guest(type: .vip, birthday: nil)
+                
+                print(PassCreator(entrant: .vipGuestPass).type!)
+                print(PassCreator(entrant: .classicGuestPass).rideAccess)
+                print(PassCreator(entrant: .vipGuestPass).areaAccess)
+                print(PassCreator(entrant: .vipGuestPass).foodDiscount)
+                print(PassCreator(entrant: .vipGuestPass).merchDiscount)
+                
+            } catch {}
+            
+        case .childGuestPass:
+            
+            do {
+                
+                try Guest(type: .child, birthday: dobTextBox.text)
+                
+            } catch UserError.missingBirthday {
+                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+                
+            } catch UserError.guestIsOlderThan5 {
+                
+                displayAlert("Not Eligible", andMessage: "Guest must be 5 years old or younger. Please select a different pass")
+                
+            } catch {
+                
+                print(error)
+            }
+            
+        case .seniorGuestPass: break
+            
+        case .seasonGuestPass: break
+            
+        case .employeeFoodServicePass: break
+        
+        case .employeeMaintenancePass: break
+            
+        case .employeeRideServicePass: break
+            
+        case .employeeManagerPass: break
+            
+        case .employeeContractPass: break
+            
+        case .vendorPass: break
+            
+        }
+    }
+    
+    @IBAction func EntrantButtons(_ sender: UIButton) {
+        
+        switch sender.tag {
+            
+        case 1: //Guest
+            
+            
+            disableTextFields()
+            UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
+            
+            
+        case 2: //Employee
+            disableTextFields()
+            UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            
+        case 3: //Manager
+            selectedEntrant = EntrantType.employeeManagerPass
+            disableTextFields()
+            enableNameAddressFields()
+            UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
+            
+        case 4: //Vendor
+            selectedEntrant = EntrantType.vendorPass
+            disableTextFields()
+            
+            self.firstNameTextBox.isEnabled = true
+            self.lastNameTextBox.isEnabled = true
+            self.companyTextBox.isEnabled = true
+            self.dateOfVisitTextBox.isEnabled = true
+            self.dobTextBox.isEnabled = true
+            
+            self.firstNameTextBox.alpha = 1.0
+            self.lastNameTextBox.alpha = 1.0
+            self.companyTextBox.alpha = 1.0
+            self.dateOfVisitTextBox.alpha = 1.0
+            self.dobTextBox.alpha = 1.0
+            
+            
+            UIView.animate(withDuration: 0.5, animations: {
+            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
+            
+        default:
+            
+            break
+            
+        }
+    }
+    
+    
+    @IBAction func guestTypeButtons(_ sender: UIButton) {
+        
+        switch sender.tag {
+            
+        case 1: //child
+            
+            disableTextFields()
+            dobTextBox.isEnabled = true
+            dobTextBox.alpha = 1.0
+            
+            selectedEntrant = EntrantType.childGuestPass
+            
+        case 2: //adult
+            
+            disableTextFields()
+            selectedEntrant = EntrantType.classicGuestPass
+            
+        case 3: //senior
+            
+            disableTextFields()
+            
+            dobTextBox.isEnabled = true
+            dobTextBox.alpha = 1.0
+            firstNameTextBox.isEnabled = true
+            firstNameTextBox.alpha = 1.0
+            lastNameTextBox.isEnabled = true
+            lastNameTextBox.alpha = 1.0
+            
+            selectedEntrant = EntrantType.seniorGuestPass
+            
+        case 4: // VIP
+            
+            disableTextFields()
+            
+            selectedEntrant = EntrantType.vipGuestPass
+            
+        case 5: // season pass
+            
+            disableTextFields()
+            
+            enableNameAddressFields()
+            
+            selectedEntrant = EntrantType.seasonGuestPass
+            
+        default: break
+        }
+        
+    }
+    
+    @IBAction func employeeTypeButtons(_ sender: UIButton) {
+        
+       switch sender.tag {
+            
+        case 1: //Food Services
+        
+        enableNameAddressFields()
+        
+        selectedEntrant = EntrantType.employeeFoodServicePass
+        
+       case 2: //Ride Services
+        
+        enableNameAddressFields()
+        
+        selectedEntrant = EntrantType.employeeRideServicePass
 
-       
+        
+       case 3: //Maintenance Services
+        
+        enableNameAddressFields()
+        
+        selectedEntrant = EntrantType.employeeMaintenancePass
 
-    }
-    @IBAction func managerButton(_ sender: Any) {
         
-   
+       case 4: //Contract
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
-            
-        })
+        enableNameAddressFields()
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
-            
-        })
+        selectedEntrant = EntrantType.employeeContractPass
+        
+            default: break
+        }
         
     }
-    @IBAction func vendorButton(_ sender: Any) {
-        
-     
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height
-            
-        })
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height
-            
-        })
-    }
+    
+    
+
     
     @IBAction func test(_ sender: Any) {
 
@@ -105,6 +271,7 @@ class ViewController: UIViewController {
          print(PassCreator(entrant: .classicGuestPass).merchDiscount)
          
         } catch {}
+        
         
 
  
@@ -536,6 +703,8 @@ class ViewController: UIViewController {
         
         view.bringSubview(toFront: entrantView)
         
+        disableTextFields()
+        
   
 
     }
@@ -545,7 +714,70 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   
+    func disableTextFields() {
+        
+        dobTextBox.isEnabled = false
+        dobTextBox.alpha = 0.3
+        
+        dateOfVisitTextBox.isEnabled = false
+        dateOfVisitTextBox.alpha = 0.3
+        
+        projectNumberTextBox.isEnabled = false
+        projectNumberTextBox.alpha = 0.3
+        
+        firstNameTextBox.isEnabled = false
+        firstNameTextBox.alpha = 0.3
+        
+        lastNameTextBox.isEnabled = false
+        lastNameTextBox.alpha = 0.3
+        
+        companyTextBox.isEnabled = false
+        companyTextBox.alpha = 0.3
+        
+        addressTextBox.isEnabled = false
+        addressTextBox.alpha = 0.3
+        
+        cityTextBox.isEnabled = false
+        cityTextBox.alpha = 0.3
+        
+        stateTextBox.isEnabled = false
+        stateTextBox.alpha = 0.3
+        
+        zipcodeTextBox.isEnabled = false
+        zipcodeTextBox.alpha = 0.3
+    }
+    
+    func enableNameAddressFields() {
+        
+        firstNameTextBox.isEnabled = true
+        firstNameTextBox.alpha = 1.0
+        
+        lastNameTextBox.isEnabled = true
+        lastNameTextBox.alpha = 1.0
+        
+        addressTextBox.isEnabled = true
+        addressTextBox.alpha = 1.0
+        
+        cityTextBox.isEnabled = true
+        cityTextBox.alpha = 1.0
+        
+        stateTextBox.isEnabled = true
+        cityTextBox.alpha = 1.0
+        
+        zipcodeTextBox.isEnabled = true
+        zipcodeTextBox.alpha = 1.0
+        
+    }
+    
+    func displayAlert(_ title: String, andMessage message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 
 }
 

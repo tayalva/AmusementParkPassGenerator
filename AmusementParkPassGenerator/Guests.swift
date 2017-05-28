@@ -25,15 +25,18 @@ class Guest: Visitor {
   // method to see if it's the entrant's birthday
         
         
-        func isTheirBirthday() -> Bool {
-            guard let birthday = birthday else { return false }
+        func isTheirBirthday() throws -> Bool {
+            guard let birthday = birthday else { return false
+            
+                throw UserError.missingBirthday
+            }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyyy"
-            let formattedBirthday = myFormatter.date(from: birthday)
+            guard let formattedBirthday = myFormatter.date(from: birthday) else { return false }
             let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
-            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
+            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
             if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
                 
                 print("Happy Birthday!")
@@ -41,26 +44,29 @@ class Guest: Visitor {
                 
             } else {
                 
-                print("tis not your birthday")
+            
                 return false
             }
             
         }
         
 
-            isTheirBirthday() //for some reason it need to call the function again? weird
+            try isTheirBirthday() //for some reason it need to call the function again? weird
         
 
 // method to make ensure the entrant is 5 or under
         
-        func isYoungerThan5() -> Bool  {
+        func isYoungerThan5() throws -> Bool  {
             guard let birthday = birthday else { return false }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyy"
-            let formattedBirthday = myFormatter.date(from: birthday)
-            let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
+            guard let formattedBirthday = myFormatter.date(from: birthday) else {
+                
+                throw UserError.missingBirthday
+                return false}
+            let years = calendar.dateComponents([.year], from: formattedBirthday, to: currentDate)
             let age = years.year!
             if age <= 5 {
                 
@@ -77,27 +83,18 @@ class Guest: Visitor {
         
         switch type {
             
-        case .classic:
+         case .classic:
            
           
             
-            if isYoungerThan5() == true {
-                self.type = .child
-                
-            } else { self.type = .classic }
+     self.type = .classic
             
         case .child:
             
     
             guard let birthday = birthday else { throw UserError.missingBirthday }
             
-            if isYoungerThan5() {
-                self.type = .child
-                
-            } else {
-                
-                self.type = .classic
-                throw UserError.guestIsOlderThan5 }
+            guard try isYoungerThan5() else { throw UserError.guestIsOlderThan5 }
             
             
             
