@@ -8,27 +8,40 @@
 
 import Foundation
 
-class Guest: Visitor {
+ class Guest: Visitor {
     
 
     let birthday: String?
     var type: GuestType
-
+    let firstName: String?
+    let lastName: String?
+    let address: String?
+    let city: String?
+    let state: String?
+    let zipCode: String?
 
     
-    init(type: GuestType, birthday: String?) throws {
+    init(type: GuestType, birthday: String?, firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zipCode: String?) throws {
         
         self.birthday = birthday
         self.type = type
+        self.firstName = firstName
+        self.lastName = lastName
+        self.address = address
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+    
  
         
   // method to see if it's the entrant's birthday
         
         
         func isTheirBirthday() throws -> Bool {
-            guard let birthday = birthday else { return false
-            
+            guard let birthday = birthday else {
+                
                 throw UserError.missingBirthday
+        
             }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
@@ -51,7 +64,7 @@ class Guest: Visitor {
         }
         
 
-            try isTheirBirthday() //for some reason it need to call the function again? weird
+           _ = try isTheirBirthday() //for some reason it need to call the function again? weird
         
 
 // method to make ensure the entrant is 5 or under
@@ -62,10 +75,7 @@ class Guest: Visitor {
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyy"
-            guard let formattedBirthday = myFormatter.date(from: birthday) else {
-                
-                throw UserError.missingBirthday
-                return false}
+            guard let formattedBirthday = myFormatter.date(from: birthday) else {throw UserError.missingBirthday}
             let years = calendar.dateComponents([.year], from: formattedBirthday, to: currentDate)
             let age = years.year!
             if age <= 5 {
@@ -92,7 +102,7 @@ class Guest: Visitor {
         case .child:
             
     
-            guard let birthday = birthday else { throw UserError.missingBirthday }
+            guard birthday != nil else { throw UserError.missingBirthday }
             
             guard try isYoungerThan5() else { throw UserError.guestIsOlderThan5 }
             
@@ -101,6 +111,8 @@ class Guest: Visitor {
         case .vip:
             
             self.type = .vip
+            
+        default: break
            
         
             

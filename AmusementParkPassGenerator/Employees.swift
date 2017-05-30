@@ -70,7 +70,7 @@ class Employee: Worker, Discount {
             
         }
         
-        isTheirBirthday() //for some reason it need to call the function again? weird
+        _ = isTheirBirthday() //for some reason it need to call the function again? weird
         
     
 // even though this information is also in the PassCreator, I wanted to put it here in case other information need to be store or accessed without a pass

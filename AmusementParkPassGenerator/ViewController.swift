@@ -45,7 +45,7 @@ class ViewController: UIViewController {
             
             do {
                 
-                try Guest(type: .classic, birthday: dobTextBox.text)
+               _ = try Guest(type: .classic, birthday: nil, firstName: nil, lastName: nil, address: nil, city: nil, state: nil, zipCode: nil)
                 
                 print(PassCreator(entrant: .classicGuestPass).type!)
                 print(PassCreator(entrant: .classicGuestPass).rideAccess)
@@ -59,7 +59,32 @@ class ViewController: UIViewController {
             
             do {
                 
-                try Guest(type: .vip, birthday: nil)
+               _ = try Guest(type: .vip, birthday: nil, firstName: nil, lastName: nil, address: nil, city: nil, state: nil, zipCode: nil)
+                
+        
+                
+            } catch {}
+            
+        case .childGuestPass:
+            
+            do {
+                
+              _ =  try Guest(type: .child, birthday: dobTextBox.text, firstName: nil, lastName: nil, address: nil, city: nil, state: nil, zipCode: nil)
+                
+            } catch UserError.missingBirthday {
+                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+                
+            } catch UserError.guestIsOlderThan5 {
+                
+                displayAlert("Not Eligible", andMessage: "Guest must be 5 years old or younger. Please select a different pass")
+                
+            } catch {}
+            
+        case .vipGuestPass:
+            
+            do {
+                
+               _ = try Guest(type: .vip, birthday: nil, firstName: nil, lastName: nil, address: nil, city: nil, state: nil, zipCode: nil)
                 
                 print(PassCreator(entrant: .vipGuestPass).type!)
                 print(PassCreator(entrant: .classicGuestPass).rideAccess)
@@ -69,27 +94,20 @@ class ViewController: UIViewController {
                 
             } catch {}
             
-        case .childGuestPass:
+        case .seniorGuestPass:
+            
             
             do {
                 
-                try Guest(type: .child, birthday: dobTextBox.text)
-                
-            } catch UserError.missingBirthday {
-                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
-                
-            } catch UserError.guestIsOlderThan5 {
-                
-                displayAlert("Not Eligible", andMessage: "Guest must be 5 years old or younger. Please select a different pass")
-                
-            } catch {
-                
-                print(error)
-            }
+               _ = try Guest(type: .senior, birthday: dobTextBox.text, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zipCode: nil)
+            } catch {}
             
-        case .seniorGuestPass: break
             
-        case .seasonGuestPass: break
+        case .seasonGuestPass:
+            
+            do {
+              _ =  try Guest(type: .season, birthday: nil, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zipCode: zipcodeTextBox.text)
+            } catch {}
             
         case .employeeFoodServicePass: break
         
@@ -259,19 +277,7 @@ class ViewController: UIViewController {
 
 ////////////////////////////////////////////
 
- // Tests a classic guest entrant while printing access rights to the console
-        do {
-            
-            try Guest(type: .classic, birthday: "04/25/1988")
-         
-         print(PassCreator(entrant: .classicGuestPass).type!)
-         print(PassCreator(entrant: .classicGuestPass).rideAccess)
-         print(PassCreator(entrant: .classicGuestPass).areaAccess)
-         print(PassCreator(entrant: .classicGuestPass).foodDiscount)
-         print(PassCreator(entrant: .classicGuestPass).merchDiscount)
-         
-        } catch {}
-        
+
         
 
  
