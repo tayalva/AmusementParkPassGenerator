@@ -30,24 +30,30 @@ import Foundation
         self.city = city
         self.state = state
         self.zipCode = zipCode
-    
- 
+        
+
+        var tempBirthday = birthday
+        if tempBirthday == "" { tempBirthday = nil }
+        guard tempBirthday != nil else { throw UserError.missingBirthday }
+        
+     
+        guard firstName != "", lastName != "" else { throw UserError.missingFullName }
+        guard address != "", city != "", state != "", zipCode != "" else { throw UserError.missingFullAddress }
+        
+        
         
   // method to see if it's the entrant's birthday
         
         
-        func isTheirBirthday() throws -> Bool {
+        func isTheirBirthday() -> Bool {
             
-            guard birthday != "" else { throw UserError.missingBirthday }
-            guard birthday != nil else { throw UserError.missingBirthday }
-    
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyyy"
-            guard let formattedBirthday = myFormatter.date(from: birthday!) else { throw UserError.missingBirthday }
+            let formattedBirthday = myFormatter.date(from: tempBirthday!)
             let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
-            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
+            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
             if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
                 
                 print("Happy Birthday!")
@@ -55,28 +61,25 @@ import Foundation
                 
             } else {
                 
-            
+                
                 return false
             }
             
         }
         
 
-           _ = try isTheirBirthday() //for some reason it need to call the function again? weird
+           _ = isTheirBirthday() //for some reason it need to call the function again? weird
         
 
 // method to make ensure the entrant is 5 or under
         
         func isYoungerThan5() throws -> Bool  {
-            guard birthday != "" else { throw UserError.guestIsOlderThan5 }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()
             myFormatter.dateFormat = "MM/dd/yyy"
-            guard let formattedBirthday = myFormatter.date(from: birthday!) else {
-                print("this is so dumb")
-                return false }
-            let years = calendar.dateComponents([.year], from: formattedBirthday, to: currentDate)
+            let formattedBirthday = myFormatter.date(from: tempBirthday!)
+            let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
             let age = years.year!
             if age <= 5 {
                 
@@ -84,12 +87,13 @@ import Foundation
                 return true
             } else {
                 
-                return false
-                
+                throw UserError.guestIsOlderThan5
             }
         
         
         }
+        
+        _ = try isYoungerThan5()
     
         
       

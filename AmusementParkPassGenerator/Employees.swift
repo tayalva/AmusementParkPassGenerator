@@ -29,10 +29,13 @@ class Employee: Worker, Discount {
     init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, employeeType: EmployeeType) throws {
         
         guard let firstName = firstName, let lastName = lastName else { throw UserError.missingFullName }
-        
+        guard firstName != "", lastName != "" else { throw UserError.missingFullName }
         
         guard let address = address, let city = city, let state = state, let zip = zip else { throw UserError.missingFullAddress }
+        guard address != "", city != "", state != "", zip != "" else { throw UserError.missingFullAddress }
         
+        guard let birthday = birthday else { throw UserError.missingBirthday }
+        guard birthday != "" else { throw UserError.missingBirthday }
     
         
         self.firstName = firstName
@@ -48,7 +51,6 @@ class Employee: Worker, Discount {
         
         func isTheirBirthday() -> Bool {
             
-            guard let birthday = birthday else { return false }
             let myFormatter = DateFormatter()
             let calendar = Calendar.current
             let currentDate = Date()

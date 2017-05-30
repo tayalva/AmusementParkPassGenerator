@@ -48,12 +48,6 @@ class ViewController: UIViewController {
                 
                _ = try Guest(type: .classic, birthday: nil, firstName: nil, lastName: nil, address: nil, city: nil, state: nil, zipCode: nil)
                 
-                print(PassCreator(entrant: .classicGuestPass).type!)
-                print(PassCreator(entrant: .classicGuestPass).rideAccess)
-                print(PassCreator(entrant: .classicGuestPass).areaAccess)
-                print(PassCreator(entrant: .classicGuestPass).foodDiscount)
-                print(PassCreator(entrant: .classicGuestPass).merchDiscount)
-                
             } catch {}
             
         case .vipGuestPass:
@@ -90,7 +84,7 @@ class ViewController: UIViewController {
                 
                _ = try Guest(type: .senior, birthday: dobTextBox.text, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zipCode: nil)
             } catch UserError.missingFullName{
-                displayAlert("Missing Name", andMessage: "Please provide your first and last name")
+                displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
             }catch UserError.missingBirthday{
                 displayAlert("Missing Birthday", andMessage: "Please provide your date of birth")
             } catch {}
@@ -99,7 +93,12 @@ class ViewController: UIViewController {
         case .seasonGuestPass:
             
             do {
-              _ =  try Guest(type: .season, birthday: nil, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zipCode: zipcodeTextBox.text)
+                
+                _ = try Guest(type: .season, birthday: nil, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zipCode: zipcodeTextBox.text)
+            } catch UserError.missingFullName{
+                displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
+            }catch UserError.missingBirthday{
+                displayAlert("Missing Birthday", andMessage: "Please provide your date of birth")
             } catch {}
             
         case .employeeFoodServicePass:
@@ -109,15 +108,35 @@ class ViewController: UIViewController {
                 
                 _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .foodServices)
             } catch UserError.missingFullAddress {
-                print("Please enter your full address.")
+                displayAlert("Missing Address", andMessage: "Please provide your full address")
             } catch UserError.missingFullName {
-                print("Please enter your full name")
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
             }catch {}
         
         
-        case .employeeMaintenancePass: break
+        case .employeeMaintenancePass:
             
-        case .employeeRideServicePass: break
+            do {
+            
+            _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .maintenance)
+            
+            } catch UserError.missingFullAddress {
+                displayAlert("Missing Address", andMessage: "Please provide your full address")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            }catch {}
+            
+        case .employeeRideServicePass:
+            
+            do {
+                
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .rideServices)
+                
+            } catch UserError.missingFullAddress {
+                displayAlert("Missing Address", andMessage: "Please provide your full address")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            }catch {}
             
         case .employeeManagerPass: break
             
@@ -125,7 +144,9 @@ class ViewController: UIViewController {
             
         case .vendorPass: break
             
+            
         }
+        
     }
     
     @IBAction func EntrantButtons(_ sender: UIButton) {
