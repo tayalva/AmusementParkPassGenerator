@@ -31,72 +31,63 @@ import Foundation
         self.state = state
         self.zipCode = zipCode
         
-
-        var tempBirthday = birthday
-        if tempBirthday == "" { tempBirthday = nil }
-        guard tempBirthday != nil else { throw UserError.missingBirthday }
         
-     
-        guard firstName != "", lastName != "" else { throw UserError.missingFullName }
-        guard address != "", city != "", state != "", zipCode != "" else { throw UserError.missingFullAddress }
-        
-        
-        
-  // method to see if it's the entrant's birthday
-        
-        
-        func isTheirBirthday() -> Bool {
-            
-            let myFormatter = DateFormatter()
-            let calendar = Calendar.current
-            let currentDate = Date()
-            myFormatter.dateFormat = "MM/dd/yyyy"
-            let formattedBirthday = myFormatter.date(from: tempBirthday!)
-            let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
-            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
-            if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
-                
-                print("Happy Birthday!")
-                return true
-                
-            } else {
-                
-                
-                return false
-            }
-            
-        }
-        
-
-           _ = isTheirBirthday() //for some reason it need to call the function again? weird
-        
-
-// method to make ensure the entrant is 5 or under
-        
-        func isYoungerThan5() throws -> Bool  {
-            let myFormatter = DateFormatter()
-            let calendar = Calendar.current
-            let currentDate = Date()
-            myFormatter.dateFormat = "MM/dd/yyy"
-            let formattedBirthday = myFormatter.date(from: tempBirthday!)
-            let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
-            let age = years.year!
-            if age <= 5 {
-                
-                print("You are under 5!")
-                return true
-            } else {
-                
-                throw UserError.guestIsOlderThan5
-            }
-        
-        
-        }
-        
-        _ = try isYoungerThan5()
     
+        if type == .child || type == .senior {
+            
+            _ = try isYoungerThan5()
+            _ = try isTheirBirthday()
+        }
+        
+        guard firstName != "", lastName != "" else { throw UserError.missingFullName }
+        guard firstName != nil, lastName != nil else { throw UserError.missingFullName }
+        guard address != "", city != "", state != "", zipCode != "" else { throw UserError.missingFullAddress }
+        guard address != nil, city != nil, state != nil, zipCode != nil else { throw UserError.missingFullAddress }
         
       
+        
+    }
+    
+    
+      // method to see if it's the entrant's birthday
+    func isTheirBirthday() throws -> Bool {
+        guard let birthday = birthday else { throw UserError.missingBirthday }
+        let myFormatter = DateFormatter()
+        let calendar = Calendar.current
+        let currentDate = Date()
+        myFormatter.dateFormat = "MM/dd/yyyy"
+        guard let formattedBirthday = myFormatter.date(from: birthday) else { throw UserError.missingBirthday }
+        let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
+        let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
+        if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
+            print("Happy Birthday!")
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
+    // method to make ensure the entrant is 5 or under
+    func isYoungerThan5() throws -> Bool  {
+        guard let birthday = birthday else { throw UserError.missingBirthday }
+        print("it is running the age checker")
+        let myFormatter = DateFormatter()
+        let calendar = Calendar.current
+        let currentDate = Date()
+        myFormatter.dateFormat = "MM/dd/yyy"
+        let formattedBirthday = myFormatter.date(from: birthday)
+        let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
+        let age = years.year!
+        if age <= 5 {
+            
+            print("You are under 5!")
+            return true
+        } else {
+            
+            throw UserError.guestIsOlderThan5
+        }
+        
     }
     
     

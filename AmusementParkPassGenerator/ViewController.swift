@@ -8,10 +8,12 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     var reEntry = true
-
+   
+    @IBOutlet weak var vendorView: UIView!
     @IBOutlet weak var employeeView: UIView!
     @IBOutlet weak var guestView: UIView!
     @IBOutlet weak var entrantView: UIView!
@@ -31,8 +33,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var cityTextBox: UITextField!
     @IBOutlet weak var stateTextBox: UITextField!
     @IBOutlet weak var zipcodeTextBox: UITextField!
-    
-    
+
     var selectedEntrant: EntrantType = EntrantType.classicGuestPass
     
     @IBAction func generatePassButton(_ sender: Any) {
@@ -83,24 +84,31 @@ class ViewController: UIViewController {
             do {
                 
                _ = try Guest(type: .senior, birthday: dobTextBox.text, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zipCode: nil)
-            } catch UserError.missingFullName{
-                displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
             }catch UserError.missingBirthday{
                 displayAlert("Missing Birthday", andMessage: "Please provide your date of birth")
+            } catch UserError.missingFullName{
+                displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
             } catch {}
             
             
         case .seasonGuestPass:
             
-            do {
-                
-                _ = try Guest(type: .season, birthday: nil, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zipCode: zipcodeTextBox.text)
-            } catch UserError.missingFullName{
-                displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
-            }catch UserError.missingBirthday{
-                displayAlert("Missing Birthday", andMessage: "Please provide your date of birth")
-            } catch {}
             
+            
+            do {
+                print("season dude!")
+               _ = try Guest(type: .season, birthday: nil, firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zipCode: zipcodeTextBox.text)
+                
+            }catch UserError.missingFullName {
+                
+                  displayAlert("Missing Name", andMessage: "Please provide both a first and last name")
+            }catch UserError.missingFullAddress{
+                
+                 displayAlert("Missing Address", andMessage: "Please provide your full address")
+            }catch {}
+            
+            
+    
         case .employeeFoodServicePass:
             
             
@@ -138,9 +146,29 @@ class ViewController: UIViewController {
                 displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
             }catch {}
             
-        case .employeeManagerPass: break
+        case .employeeManagerPass:
             
-        case .employeeContractPass: break
+            do {
+                
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .manager)
+                
+            } catch UserError.missingFullAddress {
+                displayAlert("Missing Address", andMessage: "Please provide your full address")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            }catch {}
+            
+        case .employeeContractPass:
+            
+            do {
+                
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .contract)
+                
+            } catch UserError.missingFullAddress {
+                displayAlert("Missing Address", andMessage: "Please provide your full address")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            }catch {}
             
         case .vendorPass: break
             
@@ -157,10 +185,13 @@ class ViewController: UIViewController {
             
             
             disableTextFields()
+            
             UIView.animate(withDuration: 0.5, animations: {
             self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
+            self.employeeView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
             
         case 2: //Employee
@@ -169,6 +200,8 @@ class ViewController: UIViewController {
             self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
             self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
         case 3: //Manager
             selectedEntrant = EntrantType.employeeManagerPass
@@ -178,6 +211,8 @@ class ViewController: UIViewController {
             self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
             self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
         case 4: //Vendor
             selectedEntrant = EntrantType.vendorPass
@@ -195,7 +230,8 @@ class ViewController: UIViewController {
             self.dateOfVisitTextBox.alpha = 1.0
             self.dobTextBox.alpha = 1.0
             
-            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vendorView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
             self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
@@ -793,7 +829,7 @@ class ViewController: UIViewController {
         cityTextBox.alpha = 1.0
         
         stateTextBox.isEnabled = true
-        cityTextBox.alpha = 1.0
+        stateTextBox.alpha = 1.0
         
         zipcodeTextBox.isEnabled = true
         zipcodeTextBox.alpha = 1.0

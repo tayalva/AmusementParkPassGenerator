@@ -49,9 +49,12 @@ enum EmployeeType {
     
 }
 
-enum Vendor {
+enum Vendor: String {
     
-    case vendor
+    case acme = "Acme"
+    case orkin = "Orkin"
+    case fedex = "FedEx"
+    case nwElectrical = "NW Electrical"
     
 }
 
