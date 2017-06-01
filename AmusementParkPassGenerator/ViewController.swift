@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var managerButtonOutlet: UIButton!
     @IBOutlet weak var vendorButtonOutlet: UIButton!
     
+    @IBOutlet weak var blankView: UIView!
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var dobTextBox: UITextField!
     @IBOutlet weak var dateOfVisitTextBox: UITextField!
@@ -114,7 +115,7 @@ class ViewController: UIViewController {
             
             do {
                 
-                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .foodServices)
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .foodServices, projectNumber: nil)
             } catch UserError.missingFullAddress {
                 displayAlert("Missing Address", andMessage: "Please provide your full address")
             } catch UserError.missingFullName {
@@ -126,7 +127,7 @@ class ViewController: UIViewController {
             
             do {
             
-            _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .maintenance)
+            _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .maintenance, projectNumber: nil)
             
             } catch UserError.missingFullAddress {
                 displayAlert("Missing Address", andMessage: "Please provide your full address")
@@ -138,7 +139,7 @@ class ViewController: UIViewController {
             
             do {
                 
-                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .rideServices)
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .rideServices, projectNumber: nil)
                 
             } catch UserError.missingFullAddress {
                 displayAlert("Missing Address", andMessage: "Please provide your full address")
@@ -150,7 +151,7 @@ class ViewController: UIViewController {
             
             do {
                 
-                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .manager)
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .manager, projectNumber: nil)
                 
             } catch UserError.missingFullAddress {
                 displayAlert("Missing Address", andMessage: "Please provide your full address")
@@ -162,15 +163,21 @@ class ViewController: UIViewController {
             
             do {
                 
-                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .contract)
+                _ = try Employee(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: addressTextBox.text, city: cityTextBox.text, state: stateTextBox.text, zip: zipcodeTextBox.text, birthday: nil, employeeType: .contract, projectNumber: projectNumberTextBox.text)
                 
             } catch UserError.missingFullAddress {
                 displayAlert("Missing Address", andMessage: "Please provide your full address")
             } catch UserError.missingFullName {
                 displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
-            }catch {}
+            }catch UserError.missingProjectNumber {
             
-        case .vendorPass: break
+                displayAlert("Missing Project Number", andMessage: "Please provide a valid project number")
+            } catch UserError.wrongProjectNumber {
+            
+                displayAlert("That project doesn't exist!", andMessage: "Please provide a valid project number")
+            } catch {}
+            
+        default: break
             
             
         }
@@ -186,20 +193,30 @@ class ViewController: UIViewController {
             
             disableTextFields()
             
+
+      
+    
+            
             UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
+                self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+                self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
             
+       
+   
+            
+            
         case 2: //Employee
             disableTextFields()
+       
+            
             UIView.animate(withDuration: 0.5, animations: {
-            self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
+                self.guestView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+                self.employeeView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
@@ -208,32 +225,21 @@ class ViewController: UIViewController {
             disableTextFields()
             enableNameAddressFields()
             UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            self.guestView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
             self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
         case 4: //Vendor
-            selectedEntrant = EntrantType.vendorPass
+      
             disableTextFields()
             
-            self.firstNameTextBox.isEnabled = true
-            self.lastNameTextBox.isEnabled = true
-            self.companyTextBox.isEnabled = true
-            self.dateOfVisitTextBox.isEnabled = true
-            self.dobTextBox.isEnabled = true
-            
-            self.firstNameTextBox.alpha = 1.0
-            self.lastNameTextBox.alpha = 1.0
-            self.companyTextBox.alpha = 1.0
-            self.dateOfVisitTextBox.alpha = 1.0
-            self.dobTextBox.alpha = 1.0
             
             UIView.animate(withDuration: 0.5, animations: {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
-            self.guestView.frame.origin.y = self.mainView.frame.origin.y - self.mainView.frame.size.height})
+            self.guestView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
             self.employeeView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
@@ -299,12 +305,16 @@ class ViewController: UIViewController {
        switch sender.tag {
             
         case 1: //Food Services
+            
+            disableTextFields()
         
         enableNameAddressFields()
         
         selectedEntrant = EntrantType.employeeFoodServicePass
         
        case 2: //Ride Services
+        
+         disableTextFields()
         
         enableNameAddressFields()
         
@@ -313,6 +323,8 @@ class ViewController: UIViewController {
         
        case 3: //Maintenance Services
         
+         disableTextFields()
+        
         enableNameAddressFields()
         
         selectedEntrant = EntrantType.employeeMaintenancePass
@@ -320,7 +332,12 @@ class ViewController: UIViewController {
         
        case 4: //Contract
         
+         disableTextFields()
+        
         enableNameAddressFields()
+         
+         projectNumberTextBox.isEnabled = true
+         projectNumberTextBox.alpha = 1.0
         
         selectedEntrant = EntrantType.employeeContractPass
         
@@ -329,6 +346,47 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func vendorTypeButtons(_ sender: UIButton) {
+        
+        switch sender.tag {
+            
+        case 1: //Acme
+            
+             selectedEntrant = EntrantType.vendorAcmePass
+            
+             disableTextFields()
+            
+             vendorTextFields()
+            
+        case 2: //Orkin
+            
+            selectedEntrant = EntrantType.vendorOrkinPass
+            
+            disableTextFields()
+            
+            vendorTextFields()
+            
+        case 3: //FedEx
+            
+            selectedEntrant = EntrantType.vendorFedexPass
+            
+            disableTextFields()
+            
+            vendorTextFields()
+            
+        case 4: //NW Electrial
+            
+            selectedEntrant = EntrantType.vendorNwElectrical
+            
+            disableTextFields()
+            
+            vendorTextFields()
+            
+        default: break
+
+        }
+        
+    }
     
 
     
@@ -781,10 +839,30 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func vendorTextFields() {
+        
+        firstNameTextBox.isEnabled = true
+        firstNameTextBox.alpha = 1
+        
+        lastNameTextBox.isEnabled = true
+        lastNameTextBox.alpha = 1
+        
+        companyTextBox.isEnabled = true
+        companyTextBox.alpha = 1
+        
+        dobTextBox.isEnabled = true
+        dobTextBox.alpha = 1
+        
+        dateOfVisitTextBox.isEnabled = true
+        dateOfVisitTextBox.alpha = 1
+        
+    }
+    
     func disableTextFields() {
         
         dobTextBox.isEnabled = false
         dobTextBox.alpha = 0.3
+        dobTextBox.text = nil
         
         dateOfVisitTextBox.isEnabled = false
         dateOfVisitTextBox.alpha = 0.3

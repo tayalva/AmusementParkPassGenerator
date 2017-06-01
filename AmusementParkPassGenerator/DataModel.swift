@@ -49,6 +49,8 @@ enum EmployeeType {
     
 }
 
+
+
 enum Vendor: String {
     
     case acme = "Acme"
@@ -70,7 +72,10 @@ enum EntrantType: String {
     case employeeMaintenancePass = "Maintenance Employee Pass"
     case employeeManagerPass = "Manager Employee Pass"
     case employeeContractPass = "Contract Employee Pass"
-    case vendorPass = "Vendor Pass"
+    case vendorAcmePass = "Vendor: Acme"
+    case vendorOrkinPass = "Vendor: Orkin"
+    case vendorFedexPass = "Vendor: FedEx"
+    case vendorNwElectrical = "Vendor: NW Electrical"
     
     
 }
@@ -81,6 +86,8 @@ enum UserError: Error {
     case missingFullAddress
     case missingBirthday
     case guestIsOlderThan5
+    case missingProjectNumber
+    case wrongProjectNumber
 
 }
 

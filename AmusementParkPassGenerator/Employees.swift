@@ -22,11 +22,14 @@ class Employee: Worker, Discount {
     let foodDiscount: Double
     let merchDiscount: Double
     let type: EmployeeType
+    let projectNumber: String?
     
     
     
     
-    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, employeeType: EmployeeType) throws {
+    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, employeeType: EmployeeType, projectNumber: String?) throws {
+        
+        guard projectNumber != "" else {throw UserError.missingProjectNumber }
         
         guard let firstName = firstName, let lastName = lastName else { throw UserError.missingFullName }
         guard firstName != "", lastName != "" else { throw UserError.missingFullName }
@@ -34,9 +37,6 @@ class Employee: Worker, Discount {
         guard let address = address, let city = city, let state = state, let zip = zip else { throw UserError.missingFullAddress }
         guard address != "", city != "", state != "", zip != "" else { throw UserError.missingFullAddress }
         
-        guard let birthday = birthday else { throw UserError.missingBirthday }
-        guard birthday != "" else { throw UserError.missingBirthday }
-    
         
         self.firstName = firstName
         self.lastName = lastName
@@ -45,34 +45,9 @@ class Employee: Worker, Discount {
         self.city = city
         self.state = state
         self.zip = zip
-        self.type = .foodServices
+        self.type = employeeType
+        self.projectNumber = projectNumber
         
- // method to check if it's the entrant's birthday or not
-        
-        func isTheirBirthday() -> Bool {
-            
-            let myFormatter = DateFormatter()
-            let calendar = Calendar.current
-            let currentDate = Date()
-            myFormatter.dateFormat = "MM/dd/yyyy"
-            let formattedBirthday = myFormatter.date(from: birthday)
-            let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
-            let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday!)
-            if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
-                
-                print("Happy Birthday!")
-                return true
-                
-            } else {
-                
-                print("tis not your birthday")
-                return false
-            }
-            
-            
-        }
-        
-        _ = isTheirBirthday() //for some reason it need to call the function again? weird
         
     
 // even though this information is also in the PassCreator, I wanted to put it here in case other information need to be store or accessed without a pass
@@ -96,11 +71,45 @@ class Employee: Worker, Discount {
             self.merchDiscount = 0.25
             
         case .contract:
-            self.areaAccess = [EntrantAccess.amusementArea, EntrantAccess.kitchenArea]
+            
+            
+            guard projectNumber != nil else { throw UserError.missingProjectNumber }
+            
+            switch projectNumber {
+                
+            case "1001"?:
+                
+                self.areaAccess = [EntrantAccess.amusementArea, EntrantAccess.rideControl]
+                
+            case "1002"?:
+                
+                self.areaAccess = [EntrantAccess.amusementArea, EntrantAccess.rideControl, EntrantAccess.maintenance]
+                
+            case "1003"?:
+                
+                self.areaAccess = [EntrantAccess.amusementArea, EntrantAccess.rideControl, EntrantAccess.maintenance, EntrantAccess.kitchenArea, EntrantAccess.office]
+                
+            case "2001"?:
+                
+                self.areaAccess = [EntrantAccess.office]
+                
+            case "2002"?:
+                
+                self.areaAccess = [EntrantAccess.kitchenArea, EntrantAccess.maintenance]
+                
+            default:
+                
+                throw UserError.wrongProjectNumber
+            }
+            
+            
+            
+            
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
             
         }
         
     }
+    
 }

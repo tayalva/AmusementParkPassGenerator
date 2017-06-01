@@ -97,14 +97,37 @@ class PassCreator: Discount {
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
             
-        case .vendorPass:
+        case .vendorAcmePass:
             
-            self.type = EntrantType.vendorPass.rawValue
-            self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.kitchenArea.rawValue]
-            self.rideAccess = [RideAccess.accessAllRides.rawValue]
+            self.type = EntrantType.vendorAcmePass.rawValue
+            self.areaAccess = [EntrantAccess.kitchenArea.rawValue]
+            self.rideAccess = []
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
             
+        case .vendorFedexPass:
+            
+            self.type = EntrantType.vendorFedexPass.rawValue
+            self.areaAccess = [EntrantAccess.maintenance.rawValue, EntrantAccess.office.rawValue]
+            self.rideAccess = []
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
+            
+        case .vendorOrkinPass:
+            
+            self.type = EntrantType.vendorOrkinPass.rawValue
+            self.areaAccess = [EntrantAccess.kitchenArea.rawValue, EntrantAccess.amusementArea.rawValue, EntrantAccess.rideControl.rawValue]
+            self.rideAccess = []
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
+            
+        case .vendorNwElectrical:
+            
+            self.type = EntrantType.vendorNwElectrical.rawValue
+            self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.rideControl.rawValue, EntrantAccess.kitchenArea.rawValue, EntrantAccess.maintenance.rawValue, EntrantAccess.office.rawValue]
+            self.rideAccess = []
+            self.foodDiscount = 0.0
+            self.merchDiscount = 0.0
         }
         
     }

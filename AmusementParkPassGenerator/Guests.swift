@@ -76,8 +76,8 @@ import Foundation
         let calendar = Calendar.current
         let currentDate = Date()
         myFormatter.dateFormat = "MM/dd/yyy"
-        let formattedBirthday = myFormatter.date(from: birthday)
-        let years = calendar.dateComponents([.year], from: formattedBirthday!, to: currentDate)
+        guard let formattedBirthday = myFormatter.date(from: birthday) else { throw UserError.missingBirthday }
+        let years = calendar.dateComponents([.year], from: formattedBirthday, to: currentDate)
         let age = years.year!
         if age <= 5 {
             
@@ -85,7 +85,10 @@ import Foundation
             return true
         } else {
             
-            throw UserError.guestIsOlderThan5
+            if type == .child {
+                throw UserError.guestIsOlderThan5 }
+            
+            return false 
         }
         
     }
