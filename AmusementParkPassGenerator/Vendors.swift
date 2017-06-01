@@ -23,7 +23,12 @@ class Vendors {
     
     
     
-    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, vendorType: Vendor) throws {
+    init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, vendorType: Vendor, dateOfVisit: String?) throws {
+        
+        guard let birthday = birthday else { throw UserError.missingBirthday }
+        guard birthday != "" else { throw UserError.missingBirthday }
+        
+        guard dateOfVisit != "" else { throw UserError.missingDateOfVisit }
         
         guard let firstName = firstName, let lastName = lastName else { throw UserError.missingFullName }
         guard firstName != "", lastName != "" else { throw UserError.missingFullName }
@@ -31,8 +36,6 @@ class Vendors {
         guard let address = address, let city = city, let state = state, let zip = zip else { throw UserError.missingFullAddress }
         guard address != "", city != "", state != "", zip != "" else { throw UserError.missingFullAddress }
         
-        guard let birthday = birthday else { throw UserError.missingBirthday }
-        guard birthday != "" else { throw UserError.missingBirthday }
         
         
         self.firstName = firstName

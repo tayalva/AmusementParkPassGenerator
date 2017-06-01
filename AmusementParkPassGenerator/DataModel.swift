@@ -88,6 +88,7 @@ enum UserError: Error {
     case guestIsOlderThan5
     case missingProjectNumber
     case wrongProjectNumber
+    case missingDateOfVisit
 
 }
 

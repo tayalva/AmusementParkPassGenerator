@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var employeeButtonOutlet: UIButton!
     @IBOutlet weak var managerButtonOutlet: UIButton!
     @IBOutlet weak var vendorButtonOutlet: UIButton!
+    @IBOutlet weak var generatePassButtonOutlet: UIButton!
+    @IBOutlet weak var popDataButtonOutlet: UIButton!
     
     @IBOutlet weak var blankView: UIView!
     @IBOutlet var mainView: UIView!
@@ -177,7 +179,63 @@ class ViewController: UIViewController {
                 displayAlert("That project doesn't exist!", andMessage: "Please provide a valid project number")
             } catch {}
             
-        default: break
+        case .vendorAcmePass:
+            
+            do {
+                
+                _ = try Vendors(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zip: nil, birthday: dobTextBox.text, vendorType: .acme, dateOfVisit: dateOfVisitTextBox.text)
+            } catch UserError.missingBirthday {
+                 displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            } catch UserError.missingDateOfVisit {
+                
+                displayAlert("Missing Date Of Visit", andMessage: "Please provide the visit date")
+            }catch {}
+            
+        case .vendorOrkinPass:
+            
+            do {
+                
+                _ = try Vendors(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zip: nil, birthday: dobTextBox.text, vendorType: .orkin, dateOfVisit: dateOfVisitTextBox.text)
+            } catch UserError.missingBirthday {
+                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            } catch UserError.missingDateOfVisit {
+                
+                displayAlert("Missing Date Of Visit", andMessage: "Please provide the visit date")
+            }catch {}
+            
+        case .vendorFedexPass:
+            
+            do {
+                
+                _ = try Vendors(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zip: nil, birthday: dobTextBox.text, vendorType: .fedex, dateOfVisit: dateOfVisitTextBox.text)
+            } catch UserError.missingBirthday {
+                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            } catch UserError.missingDateOfVisit {
+                
+                displayAlert("Missing Date Of Visit", andMessage: "Please provide the visit date")
+            }catch {}
+            
+        case .vendorNwElectrical:
+            
+            do {
+                
+                _ = try Vendors(firstName: firstNameTextBox.text, lastName: lastNameTextBox.text, address: nil, city: nil, state: nil, zip: nil, birthday: dobTextBox.text, vendorType: .nwElectrical, dateOfVisit: dateOfVisitTextBox.text)
+            } catch UserError.missingBirthday {
+                displayAlert("Missing Info", andMessage: "Please provide guest's date of birth")
+            } catch UserError.missingFullName {
+                displayAlert("Missing Full Name", andMessage: "Please provide both a first and last name")
+            } catch UserError.missingDateOfVisit {
+                
+                displayAlert("Missing Date Of Visit", andMessage: "Please provide the visit date")
+            }catch {}
+            
+       
             
             
         }
@@ -186,17 +244,18 @@ class ViewController: UIViewController {
     
     @IBAction func EntrantButtons(_ sender: UIButton) {
         
+        generatePassButtonOutlet.isEnabled = false
+        generatePassButtonOutlet.alpha = 0.3
+        popDataButtonOutlet.isEnabled = false
+        popDataButtonOutlet.alpha = 0.3
+        
         switch sender.tag {
             
         case 1: //Guest
             
             
             disableTextFields()
-            
-
-      
-    
-            
+        
             UIView.animate(withDuration: 0.5, animations: {
                 self.guestView.frame.origin.y = self.entrantView.frame.origin.y + self.entrantView.frame.size.height})
             UIView.animate(withDuration: 0.5, animations: {
@@ -204,10 +263,7 @@ class ViewController: UIViewController {
             UIView.animate(withDuration: 0.5, animations: {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
-            
-       
-   
-            
+
             
         case 2: //Employee
             disableTextFields()
@@ -221,6 +277,12 @@ class ViewController: UIViewController {
                 self.vendorView.frame.origin.y = self.entrantView.frame.origin.y - self.entrantView.frame.size.height})
             
         case 3: //Manager
+            
+            generatePassButtonOutlet.isEnabled = true
+            generatePassButtonOutlet.alpha = 1.0
+            popDataButtonOutlet.isEnabled = true
+            popDataButtonOutlet.alpha = 1.0
+            
             selectedEntrant = EntrantType.employeeManagerPass
             disableTextFields()
             enableNameAddressFields()
@@ -253,6 +315,10 @@ class ViewController: UIViewController {
     
     @IBAction func guestTypeButtons(_ sender: UIButton) {
         
+        generatePassButtonOutlet.isEnabled = true
+        generatePassButtonOutlet.alpha = 1.0
+        popDataButtonOutlet.isEnabled = true
+        popDataButtonOutlet.alpha = 1.0
         switch sender.tag {
             
         case 1: //child
@@ -302,6 +368,11 @@ class ViewController: UIViewController {
     
     @IBAction func employeeTypeButtons(_ sender: UIButton) {
         
+        generatePassButtonOutlet.isEnabled = true
+        generatePassButtonOutlet.alpha = 1.0
+        popDataButtonOutlet.isEnabled = true
+        popDataButtonOutlet.alpha = 1.0
+        
        switch sender.tag {
             
         case 1: //Food Services
@@ -338,6 +409,8 @@ class ViewController: UIViewController {
          
          projectNumberTextBox.isEnabled = true
          projectNumberTextBox.alpha = 1.0
+         popDataButtonOutlet.isEnabled = true
+         popDataButtonOutlet.alpha = 1.0
         
         selectedEntrant = EntrantType.employeeContractPass
         
@@ -348,6 +421,11 @@ class ViewController: UIViewController {
     
     @IBAction func vendorTypeButtons(_ sender: UIButton) {
         
+        generatePassButtonOutlet.isEnabled = true
+        generatePassButtonOutlet.alpha = 1.0
+        popDataButtonOutlet.isEnabled = true
+        popDataButtonOutlet.alpha = 1.0
+        
         switch sender.tag {
             
         case 1: //Acme
@@ -355,38 +433,104 @@ class ViewController: UIViewController {
              selectedEntrant = EntrantType.vendorAcmePass
             
              disableTextFields()
-            
              vendorTextFields()
+            companyTextBox.text = "Acme"
             
         case 2: //Orkin
             
             selectedEntrant = EntrantType.vendorOrkinPass
             
             disableTextFields()
-            
             vendorTextFields()
+            companyTextBox.text = "Orkin"
             
         case 3: //FedEx
             
             selectedEntrant = EntrantType.vendorFedexPass
             
             disableTextFields()
-            
             vendorTextFields()
+            companyTextBox.text = "FedEx"
             
         case 4: //NW Electrial
             
             selectedEntrant = EntrantType.vendorNwElectrical
             
             disableTextFields()
-            
             vendorTextFields()
+            
+            companyTextBox.text = "NW Electrical"
             
         default: break
 
         }
         
     }
+    
+    @IBAction func popDataButton(_ sender: Any) {
+        
+        switch selectedEntrant {
+            
+        case .childGuestPass:
+            
+            dobTextBox.text = "04/04/2015"
+        
+        case .classicGuestPass:
+            
+            break
+            
+        case .seniorGuestPass:
+            
+            dobTextBox.text = "04/04/1955"
+            firstNameTextBox.text = "Taylor"
+            lastNameTextBox.text = "Smith"
+            
+        case .vipGuestPass:
+            
+            break
+        
+        case .seasonGuestPass:
+            
+        
+            firstNameTextBox.text = "Taylor"
+            lastNameTextBox.text = "Smith"
+            addressTextBox.text = "123 Swift lane"
+            cityTextBox.text = "Huntington Beach"
+            stateTextBox.text = "CA"
+            zipcodeTextBox.text = "12345"
+            
+        case .employeeFoodServicePass, .employeeRideServicePass, .employeeMaintenancePass, .employeeManagerPass:
+            
+            firstNameTextBox.text = "Taylor"
+            lastNameTextBox.text = "Smith"
+            addressTextBox.text = "123 Swift lane"
+            cityTextBox.text = "Huntington Beach"
+            stateTextBox.text = "CA"
+            zipcodeTextBox.text = "12345"
+            
+        case .employeeContractPass:
+            
+            projectNumberTextBox.text = "1001"
+            firstNameTextBox.text = "Taylor"
+            lastNameTextBox.text = "Smith"
+            addressTextBox.text = "123 Swift lane"
+            cityTextBox.text = "Huntington Beach"
+            stateTextBox.text = "CA"
+            zipcodeTextBox.text = "12345"
+            
+        case .vendorAcmePass, .vendorOrkinPass, .vendorFedexPass, .vendorNwElectrical:
+            
+            dobTextBox.text = "04/04/1988"
+            dateOfVisitTextBox.text = "05/30/2017"
+            firstNameTextBox.text = "Taylor"
+            lastNameTextBox.text = "Smith"
+        
+        }
+        
+        
+  
+    }
+    
     
 
     
@@ -866,30 +1010,39 @@ class ViewController: UIViewController {
         
         dateOfVisitTextBox.isEnabled = false
         dateOfVisitTextBox.alpha = 0.3
+        dateOfVisitTextBox.text = nil
         
         projectNumberTextBox.isEnabled = false
         projectNumberTextBox.alpha = 0.3
+        projectNumberTextBox.text = nil
         
         firstNameTextBox.isEnabled = false
         firstNameTextBox.alpha = 0.3
+        firstNameTextBox.text = nil
         
         lastNameTextBox.isEnabled = false
         lastNameTextBox.alpha = 0.3
+        lastNameTextBox.text = nil
         
         companyTextBox.isEnabled = false
         companyTextBox.alpha = 0.3
+        companyTextBox.text = nil
         
         addressTextBox.isEnabled = false
         addressTextBox.alpha = 0.3
+        addressTextBox.text = nil
         
         cityTextBox.isEnabled = false
         cityTextBox.alpha = 0.3
+        cityTextBox.text = nil
         
         stateTextBox.isEnabled = false
         stateTextBox.alpha = 0.3
+        stateTextBox.text = nil
         
         zipcodeTextBox.isEnabled = false
         zipcodeTextBox.alpha = 0.3
+        zipcodeTextBox.text = nil
     }
     
     func enableNameAddressFields() {

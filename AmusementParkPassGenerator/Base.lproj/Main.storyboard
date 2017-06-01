@@ -157,6 +157,9 @@
                                 <state key="normal" title="Populate Data">
                                     <color key="titleColor" red="0.34414207940000002" green="0.58555161950000001" blue="0.55782914159999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="popDataButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Ic-ar-3WM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKw-yk-lJ4">
                                 <rect key="frame" x="20" y="874" width="346" height="54"/>
@@ -504,11 +507,13 @@
                         <outlet property="employeeView" destination="JzX-wH-QH9" id="1GH-ay-2rG"/>
                         <outlet property="entrantView" destination="K2a-04-zdG" id="zfd-hO-1g8"/>
                         <outlet property="firstNameTextBox" destination="K6T-QA-Y0H" id="4p6-h2-o10"/>
+                        <outlet property="generatePassButtonOutlet" destination="NKw-yk-lJ4" id="rDx-m4-CZv"/>
                         <outlet property="guestButtonOutlet" destination="WCR-8l-jUI" id="wvH-Co-pVK"/>
                         <outlet property="guestView" destination="yMd-ja-jyd" id="UAW-TV-whK"/>
                         <outlet property="lastNameTextBox" destination="IrJ-R0-39l" id="rK3-mq-fSO"/>
                         <outlet property="mainView" destination="8bC-Xf-vdC" id="dlg-5e-3Uy"/>
                         <outlet property="managerButtonOutlet" destination="Bmx-U8-rka" id="3P1-CE-ufW"/>
+                        <outlet property="popDataButtonOutlet" destination="Oxr-6r-nSy" id="y1N-Ra-hrh"/>
                         <outlet property="projectNumberTextBox" destination="xRV-vj-nsW" id="PcJ-9S-43R"/>
                         <outlet property="stateTextBox" destination="gNe-T8-ZOc" id="jgL-ze-BSg"/>
                         <outlet property="vendorButtonOutlet" destination="MDM-Hp-wJu" id="NWW-hR-D27"/>
