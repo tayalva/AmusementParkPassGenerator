@@ -24,8 +24,8 @@ enum EntrantAccess: String {
 
 enum RideAccess: String {
     
-    case accessAllRides = "Ride Access: All"
-    case frontOfLinePass = "VIP Front Of The Line Pass"
+    case accessAllRides = "Unlimited Rides"
+    case frontOfLinePass = "Front Of The Line Pass"
     
 }
 

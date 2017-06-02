@@ -8,6 +8,7 @@
 
 import UIKit
 
+ var selectedEntrant: EntrantType = EntrantType.classicGuestPass
 
 class ViewController: UIViewController {
     
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var stateTextBox: UITextField!
     @IBOutlet weak var zipcodeTextBox: UITextField!
 
-    var selectedEntrant: EntrantType = EntrantType.classicGuestPass
+   
     
     @IBAction func generatePassButton(_ sender: Any) {
         

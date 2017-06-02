@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -171,6 +172,7 @@
                                 </state>
                                 <connections>
                                     <action selector="generatePassButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iH6-Ub-rmK"/>
+                                    <segue destination="XZc-xn-JH3" kind="presentation" id="AR5-ei-dUG"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wo-3E-56N">
@@ -322,8 +324,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date of Birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhA-Jv-aIe">
-                                <rect key="frame" x="20" y="193" width="134" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhA-Jv-aIe">
+                                <rect key="frame" x="20" y="193" width="133.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -492,6 +494,7 @@
                             <constraint firstItem="K2a-04-zdG" firstAttribute="leading" secondItem="KwA-6P-B98" secondAttribute="leading" id="pDQ-J1-teL"/>
                             <constraint firstItem="I6y-pU-C9o" firstAttribute="trailing" secondItem="KwA-6P-B98" secondAttribute="trailing" id="qNV-YJ-k9Y"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="leading" secondItem="kf8-Rn-emH" secondAttribute="leading" id="qha-ym-H7J"/>
+                            <constraint firstItem="bhA-Jv-aIe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="rR2-Ud-Z30"/>
                             <constraint firstItem="K2a-04-zdG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xOG-s5-1Ne"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="trailing" secondItem="Ftf-HS-weO" secondAttribute="trailing" id="ya1-iP-ErD"/>
                         </constraints>
@@ -525,10 +528,10 @@
             </objects>
             <point key="canvasLocation" x="-116" y="-129"/>
         </scene>
-        <!--View Controller-->
+        <!--Pass View Controller-->
         <scene sceneID="1oe-4c-uX7">
             <objects>
-                <viewController id="XZc-xn-JH3" sceneMemberID="viewController">
+                <viewController id="XZc-xn-JH3" customClass="PassViewController" customModule="AmusementParkPassGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jre-yw-IVU"/>
                         <viewControllerLayoutGuide type="bottom" id="CKA-SG-1Ix"/>
@@ -646,6 +649,9 @@
                                 <state key="normal" title="Create New Pass">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="kUA-Wf-JVK"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oGb-QE-kAI">
                                 <rect key="frame" x="61" y="117" width="646" height="320"/>
@@ -663,30 +669,30 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pass Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9Y-qz-UPn">
-                                        <rect key="frame" x="258" y="122" width="114" height="30"/>
+                                        <rect key="frame" x="258" y="122" width="345" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Entrant Info 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brJ-vE-L3d">
-                                        <rect key="frame" x="264" y="176" width="118" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Entrant Info 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTL-k1-M9p">
-                                        <rect key="frame" x="264" y="208" width="118" height="24"/>
+                                        <rect key="frame" x="264" y="208" width="374" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Entrant Info 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSM-7i-Oa9">
-                                        <rect key="frame" x="264" y="240" width="118" height="24"/>
+                                        <rect key="frame" x="264" y="240" width="374" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Entrant Info 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brJ-vE-L3d">
+                                        <rect key="frame" x="264" y="176" width="374" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -701,10 +707,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.85913538932800293" green="0.83851373195648193" blue="0.87559646368026733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="entrantInfoLabel1" destination="brJ-vE-L3d" id="5df-Bw-3bf"/>
+                        <outlet property="entrantInfoLabel2" destination="TTL-k1-M9p" id="FXA-IB-c38"/>
+                        <outlet property="entrantInfoLabel3" destination="LSM-7i-Oa9" id="N0v-Kv-Dv0"/>
+                        <outlet property="entrantName" destination="4rX-bc-4Pr" id="1JS-8g-im9"/>
+                        <outlet property="passTypeLabel" destination="N9Y-qz-UPn" id="0BX-JU-962"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CV9-Vz-SRc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="-129"/>
+            <point key="canvasLocation" x="542.96875" y="-129.4921875"/>
         </scene>
     </scenes>
     <resources>

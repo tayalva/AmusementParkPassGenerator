@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A695C54F1EDF568100923141 /* Vendors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A695C54E1EDF568100923141 /* Vendors.swift */; };
+		A695C5511EE0AA1100923141 /* PassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A695C5501EE0AA1100923141 /* PassViewController.swift */; };
 		A69BF7BC1E9FFA02002FBFA3 /* Guests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BF7BB1E9FFA02002FBFA3 /* Guests.swift */; };
 		A69BF7BE1E9FFA4A002FBFA3 /* Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BF7BD1E9FFA4A002FBFA3 /* Employees.swift */; };
 		A69BF7C21EA5330F002FBFA3 /* PassCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BF7C11EA5330F002FBFA3 /* PassCreator.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		A695C54E1EDF568100923141 /* Vendors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendors.swift; sourceTree = "<group>"; };
+		A695C5501EE0AA1100923141 /* PassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassViewController.swift; sourceTree = "<group>"; };
 		A69BF7BB1E9FFA02002FBFA3 /* Guests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guests.swift; sourceTree = "<group>"; };
 		A69BF7BD1E9FFA4A002FBFA3 /* Employees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employees.swift; sourceTree = "<group>"; };
 		A69BF7C11EA5330F002FBFA3 /* PassCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCreator.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				A6EEB7E81E9C2BFE0031A89A /* AppDelegate.swift */,
 				A6EEB7EA1E9C2BFE0031A89A /* ViewController.swift */,
+				A695C5501EE0AA1100923141 /* PassViewController.swift */,
 				A69BF7BD1E9FFA4A002FBFA3 /* Employees.swift */,
 				A69BF7BB1E9FFA02002FBFA3 /* Guests.swift */,
 				A695C54E1EDF568100923141 /* Vendors.swift */,
@@ -161,6 +164,7 @@
 				A69BF7C41EA545BB002FBFA3 /* Kiosks.swift in Sources */,
 				A69BF7BE1E9FFA4A002FBFA3 /* Employees.swift in Sources */,
 				A695C54F1EDF568100923141 /* Vendors.swift in Sources */,
+				A695C5511EE0AA1100923141 /* PassViewController.swift in Sources */,
 				A69BF7BC1E9FFA02002FBFA3 /* Guests.swift in Sources */,
 				A6EEB7E91E9C2BFE0031A89A /* AppDelegate.swift in Sources */,
 			);
