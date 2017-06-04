@@ -89,6 +89,8 @@ enum UserError: Error {
     case missingProjectNumber
     case wrongProjectNumber
     case missingDateOfVisit
+    case zipCodeIncorrect
+    case birthdayIncorrect
 
 }
 

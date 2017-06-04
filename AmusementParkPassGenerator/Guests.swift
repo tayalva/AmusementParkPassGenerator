@@ -17,10 +17,10 @@ import Foundation
     let address: String?
     let city: String?
     let state: String?
-    let zipCode: String?
+    let zipCode: Int?
 
     
-    init(type: GuestType, birthday: String?, firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zipCode: String?) throws {
+    init(type: GuestType, birthday: String?, firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zipCode: Int?) throws {
         
         self.birthday = birthday
         self.type = type
@@ -32,7 +32,9 @@ import Foundation
         self.zipCode = zipCode
         
         
-    
+        guard birthday != "" else { throw UserError.missingBirthday }
+        
+        guard birthday != nil else { throw UserError.missingBirthday }
         if type == .child || type == .senior {
             
             _ = try isYoungerThan5()
@@ -41,8 +43,9 @@ import Foundation
         
         guard firstName != "", lastName != "" else { throw UserError.missingFullName }
         guard firstName != nil, lastName != nil else { throw UserError.missingFullName }
-        guard address != "", city != "", state != "", zipCode != "" else { throw UserError.missingFullAddress }
-        guard address != nil, city != nil, state != nil, zipCode != nil else { throw UserError.missingFullAddress }
+        guard address != "", city != "", state != "" else { throw UserError.missingFullAddress }
+        guard address != nil, city != nil, state != nil else { throw UserError.missingFullAddress }
+        guard zipCode != nil else {throw UserError.zipCodeIncorrect}
         
       
         
@@ -56,7 +59,7 @@ import Foundation
         let calendar = Calendar.current
         let currentDate = Date()
         myFormatter.dateFormat = "MM/dd/yyyy"
-        guard let formattedBirthday = myFormatter.date(from: birthday) else { throw UserError.missingBirthday }
+        guard let formattedBirthday = myFormatter.date(from: birthday) else { throw UserError.birthdayIncorrect }
         let todayComponents = calendar.dateComponents([.month, .day], from: currentDate)
         let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
         if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
@@ -70,13 +73,13 @@ import Foundation
     
     // method to make ensure the entrant is 5 or under
     func isYoungerThan5() throws -> Bool  {
-        guard let birthday = birthday else { throw UserError.missingBirthday }
-        print("it is running the age checker")
+        guard let tempBirthday = birthday else { throw UserError.missingBirthday }
+        if tempBirthday.characters.count != 10 { throw UserError.birthdayIncorrect }
         let myFormatter = DateFormatter()
         let calendar = Calendar.current
         let currentDate = Date()
         myFormatter.dateFormat = "MM/dd/yyy"
-        guard let formattedBirthday = myFormatter.date(from: birthday) else { throw UserError.missingBirthday }
+        guard let formattedBirthday = myFormatter.date(from: tempBirthday) else { throw UserError.birthdayIncorrect }
         let years = calendar.dateComponents([.year], from: formattedBirthday, to: currentDate)
         let age = years.year!
         if age <= 5 {

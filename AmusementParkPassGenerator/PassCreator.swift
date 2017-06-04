@@ -20,9 +20,13 @@ class PassCreator: Discount {
     var foodDiscount: Double
     var merchDiscount: Double
     
-    init(entrant: EntrantType) {
+    init(entrant: EntrantType, name: String?) {
+        
+        
+        self.entrantName = name
         
         switch entrant {
+            
         case .classicGuestPass:
             self.type = EntrantType.classicGuestPass.rawValue
             self.areaAccess = [EntrantAccess.amusementArea.rawValue]
@@ -131,6 +135,7 @@ class PassCreator: Discount {
         }
         
     }
+    
     
     
     

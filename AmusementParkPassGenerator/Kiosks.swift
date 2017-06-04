@@ -128,6 +128,49 @@ func OfficeAreaKiosk(_ pass: PassCreator) -> Bool {
     return false
 }
 
+func AmusementAreaKiosk(_ pass: PassCreator) -> Bool {
+    let when = DispatchTime.now() + 5
+    
+    if reEntry == true {
+        
+        for access in pass.areaAccess {
+            if access == EntrantAccess.amusementArea.rawValue {
+                reEntry = false
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    reEntry = true
+                    
+                }
+                print("Access Granted")
+                return true
+            }
+        }
+    }
+    print("Access Denied")
+    return false
+}
+
+func rideAccessKiosk(_ pass: PassCreator) -> Bool {
+    let when = DispatchTime.now() + 5
+    
+    if reEntry == true {
+        
+        for access in pass.rideAccess {
+            if access == RideAccess.accessAllRides.rawValue {
+                reEntry = false
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    reEntry = true
+                    
+                }
+                print("Access Granted")
+                return true
+            }
+        }
+    }
+    print("Access Denied")
+    return false
+}
+
+
 
 
 
