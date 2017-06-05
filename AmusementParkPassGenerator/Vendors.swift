@@ -52,6 +52,7 @@ class Vendors {
         guard address != "", city != "", state != "", zip != "" else { throw UserError.missingFullAddress }
     
         
+ // sets area access for each specific vendor 
         
         switch vendorType {
             
@@ -95,8 +96,10 @@ class Vendors {
         let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
         if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
             print("Happy Birthday!")
+            birthdayAlert = true
             return true
         } else {
+            birthdayAlert = false
             return false
         }
         

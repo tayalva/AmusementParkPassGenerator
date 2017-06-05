@@ -17,6 +17,7 @@ class PassViewController: UIViewController {
     @IBOutlet weak var entrantInfoLabel2: UILabel!
     @IBOutlet weak var entrantInfoLabel3: UILabel!
     @IBOutlet weak var testResults: UILabel!
+    @IBOutlet weak var birthdayLabel: UILabel!
     
     var accessGrantedSound: SystemSoundID = 0
     var accessDeniedSound: SystemSoundID = 1
@@ -28,21 +29,26 @@ class PassViewController: UIViewController {
     var foodDiscount = PassCreator(entrant: selectedEntrant, name: "").foodDiscount
     var merchDiscount = PassCreator(entrant: selectedEntrant, name: "").merchDiscount
     var entrantAccess = PassCreator(entrant: selectedEntrant, name: "")
+   
     
-    
-  
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadAccessGrantedSound()
         loadAccessDeniedSound()
+   
+//makes happy birthday label visible if it's the entrants birthday
         
+        if birthdayAlert == true {
+            
+            birthdayLabel.isHidden = false
+        } else {
+            
+            birthdayLabel.isHidden = true
+        }
 
-
-        // Do any additional setup after loading the view.
-    
-        
+// joins together ride access/front of the line elements to display properly
         
         let joinedRideAccess = rideAccess.joined(separator: ", ")
         
@@ -66,16 +72,8 @@ class PassViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+// test buttons for access
     
     @IBAction func testButtons(_ sender: UIButton) {
         
@@ -214,6 +212,14 @@ class PassViewController: UIViewController {
         
         
     }
+    
+    @IBAction func createNewPassButton(_ sender: Any) {
+        
+        birthdayAlert = false
+    }
+ 
+    
+// loads/plays sounds 
     
     
     func loadAccessGrantedSound() {

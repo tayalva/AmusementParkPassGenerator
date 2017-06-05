@@ -8,9 +8,9 @@
 
 import UIKit
 
- var selectedEntrant: EntrantType = EntrantType.classicGuestPass
-
+var selectedEntrant: EntrantType = EntrantType.classicGuestPass
 var nameForPass = ""
+var birthdayAlert = false
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -40,11 +40,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextBox: UITextField!
     @IBOutlet weak var zipcodeTextBox: UITextField!
 
+ 
+    // Button that passes through textbox information to generate the pass
     
     @IBAction func generatePassButton(_ sender: Any) {
         
         print(selectedEntrant)
-        
         
         switch selectedEntrant {
             
@@ -353,6 +354,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     }
     
+// Top Buttons that enabled/disable the appropriate pass types
+    
     @IBAction func EntrantButtons(_ sender: UIButton) {
         
         generatePassButtonOutlet.isEnabled = false
@@ -423,6 +426,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+// guest type buttons that enable/disable appropriate textfields
+    
     
     @IBAction func guestTypeButtons(_ sender: UIButton) {
         
@@ -477,6 +482,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+// employee type buttons that enable/disable appriopriate fields 
+    
     @IBAction func employeeTypeButtons(_ sender: UIButton) {
         
         generatePassButtonOutlet.isEnabled = true
@@ -530,6 +538,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+
+//vendor type buttons that enable/disable appropriate fields 
+    
     @IBAction func vendorTypeButtons(_ sender: UIButton) {
         
         generatePassButtonOutlet.isEnabled = true
@@ -577,6 +588,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
+ 
+
+// Populates data for each pass type
     
     @IBAction func popDataButton(_ sender: Any) {
         
@@ -673,6 +687,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+// Helper functions for enabling/disabling textfields 
+    
     
     func vendorTextFields() {
         
@@ -758,6 +775,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+// Helper function for displaying alerts
+    
     func displayAlert(_ title: String, andMessage message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -768,6 +788,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+// Helper function for limited textfield entries to 25 characters max
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool

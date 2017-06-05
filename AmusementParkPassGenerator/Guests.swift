@@ -33,6 +33,7 @@ import Foundation
         
         
   
+  // will only throw missing birthday error on types that require a birthday
         
         if type == .child || type == .senior {
             
@@ -51,10 +52,6 @@ import Foundation
         
         guard zipCode != nil else {throw UserError.zipCodeIncorrect}
             
- 
-        
-        
-      
         
     }
     
@@ -72,8 +69,10 @@ import Foundation
         let birthdayComponents = calendar.dateComponents([.month, .day], from: formattedBirthday)
         if birthdayComponents.month == todayComponents.month && birthdayComponents.day! == todayComponents.day {
             print("Happy Birthday!")
+        birthdayAlert = true
             return true
         } else {
+            birthdayAlert = false 
             return false
         }
         

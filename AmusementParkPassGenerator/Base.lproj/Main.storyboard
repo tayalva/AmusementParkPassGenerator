@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -324,8 +323,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhA-Jv-aIe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date of Birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhA-Jv-aIe">
                                 <rect key="frame" x="20" y="193" width="133.5" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -474,7 +474,6 @@
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="78" id="OFt-s1-O2B"/>
                             <constraint firstItem="I6y-pU-C9o" firstAttribute="leading" secondItem="JzX-wH-QH9" secondAttribute="leading" id="Pjz-py-Gic"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="leading" secondItem="KVV-ea-k7M" secondAttribute="leading" id="QL0-q0-tRp"/>
-                            <constraint firstItem="bhA-Jv-aIe" firstAttribute="top" secondItem="KwA-6P-B98" secondAttribute="bottom" constant="37" id="Uwb-dz-MHa"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="trailing" secondItem="KVV-ea-k7M" secondAttribute="trailing" id="Zvx-D3-wiI"/>
                             <constraint firstItem="KwA-6P-B98" firstAttribute="bottom" secondItem="yMd-ja-jyd" secondAttribute="bottom" id="epU-Ys-aE3"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="trailing" secondItem="kf8-Rn-emH" secondAttribute="trailing" id="hal-mH-RY5"/>
@@ -486,7 +485,6 @@
                             <constraint firstItem="K2a-04-zdG" firstAttribute="leading" secondItem="KwA-6P-B98" secondAttribute="leading" id="pDQ-J1-teL"/>
                             <constraint firstItem="I6y-pU-C9o" firstAttribute="trailing" secondItem="KwA-6P-B98" secondAttribute="trailing" id="qNV-YJ-k9Y"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="leading" secondItem="kf8-Rn-emH" secondAttribute="leading" id="qha-ym-H7J"/>
-                            <constraint firstItem="bhA-Jv-aIe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="rR2-Ud-Z30"/>
                             <constraint firstItem="K2a-04-zdG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xOG-s5-1Ne"/>
                             <constraint firstItem="yMd-ja-jyd" firstAttribute="trailing" secondItem="Ftf-HS-weO" secondAttribute="trailing" id="ya1-iP-ErD"/>
                         </constraints>
@@ -657,6 +655,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="createNewPassButton:" destination="XZc-xn-JH3" eventType="touchUpInside" id="xhg-ji-CKe"/>
                                     <segue destination="BYZ-38-t0r" kind="show" id="kUA-Wf-JVK"/>
                                 </connections>
                             </button>
@@ -726,10 +725,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Happy Birthday!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJh-lt-Kzl">
+                                <rect key="frame" x="237" y="445" width="294" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1905302107334137" green="0.55224519968032837" blue="0.92590552568435669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.85913538932800293" green="0.83851373195648193" blue="0.87559646368026733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="birthdayLabel" destination="pJh-lt-Kzl" id="E8a-oO-RLe"/>
                         <outlet property="entrantInfoLabel1" destination="brJ-vE-L3d" id="5df-Bw-3bf"/>
                         <outlet property="entrantInfoLabel2" destination="TTL-k1-M9p" id="FXA-IB-c38"/>
                         <outlet property="entrantInfoLabel3" destination="LSM-7i-Oa9" id="N0v-Kv-Dv0"/>
