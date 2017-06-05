@@ -32,10 +32,12 @@ import Foundation
         self.zipCode = zipCode
         
         
-        guard birthday != "" else { throw UserError.missingBirthday }
+  
         
-        guard birthday != nil else { throw UserError.missingBirthday }
         if type == .child || type == .senior {
+            
+            guard birthday != "" else { throw UserError.missingBirthday }
+            guard birthday != nil else { throw UserError.missingBirthday }
             
             _ = try isYoungerThan5()
             _ = try isTheirBirthday()
@@ -45,7 +47,12 @@ import Foundation
         guard firstName != nil, lastName != nil else { throw UserError.missingFullName }
         guard address != "", city != "", state != "" else { throw UserError.missingFullAddress }
         guard address != nil, city != nil, state != nil else { throw UserError.missingFullAddress }
+        
+        
         guard zipCode != nil else {throw UserError.zipCodeIncorrect}
+            
+ 
+        
         
       
         
@@ -55,6 +62,7 @@ import Foundation
       // method to see if it's the entrant's birthday
     func isTheirBirthday() throws -> Bool {
         guard let birthday = birthday else { throw UserError.missingBirthday }
+        if birthday.characters.count != 10 { throw UserError.birthdayIncorrect }
         let myFormatter = DateFormatter()
         let calendar = Calendar.current
         let currentDate = Date()

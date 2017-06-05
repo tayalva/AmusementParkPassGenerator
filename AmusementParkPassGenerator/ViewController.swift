@@ -125,7 +125,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                  displayAlert("Missing Address", andMessage: "Please provide your full address")
             }catch UserError.zipCodeIncorrect {
             
-            displayAlert(("Invalid Zip Code"), andMessage: "Please provide a zip code in numerical format")
+            displayAlert("Invalid Zip Code", andMessage: "Please provide a zip code in numerical format")
             } catch {}
             
             if (stateTextBox.text?.characters.count)! < 2 || (stateTextBox.text?.characters.count)! > 2 {
@@ -133,9 +133,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 displayAlert("Invalid State", andMessage: "Please provide a 2 character state abbreviation")
             }
             
-            if (zipcodeTextBox.text?.characters.count)! > 5 || (zipcodeTextBox.text?.characters.count)! < 5 {
+        
+            if (zipcodeTextBox.text?.characters.count)! != 5  {
                 
-                displayAlert("Invalid Zip Code", andMessage: "Zip Codes are 5 digits long")
+                displayAlert("Invalid Zip Code", andMessage: "Zip Codes are 5 numerical digits long")
             }
             
 
@@ -261,7 +262,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
         case .vendorAcmePass:
             
-            print(dobTextBox.text?.characters.count)
+         
             
             do {
                 

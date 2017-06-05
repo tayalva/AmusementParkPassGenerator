@@ -97,7 +97,7 @@ class PassCreator: Discount {
             
             self.type = EntrantType.employeeContractPass.rawValue
             self.areaAccess = [EntrantAccess.amusementArea.rawValue, EntrantAccess.kitchenArea.rawValue]
-            self.rideAccess = [RideAccess.accessAllRides.rawValue]
+            self.rideAccess = []
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
             

@@ -96,16 +96,7 @@ enum UserError: Error {
 
 //protocols for conformation
 
-protocol Worker {
-    
-    var firstName: String { get }
-    var lastName: String { get }
-    var address: String { get }
-    var city: String { get }
-    var state: String { get }
-    var zip: String { get }
-    
-}
+
 
 protocol Visitor {
     var type: GuestType { get }

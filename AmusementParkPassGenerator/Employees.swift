@@ -9,15 +9,15 @@
 import Foundation
 
 
-class Employee: Worker, Discount {
+class Employee: Discount {
     
-    let firstName: String
-    let lastName: String
+    let firstName: String?
+    let lastName: String?
     let birthday: String?
-    let address: String
-    let city: String
-    let state: String
-    let zip: String
+    let address: String?
+    let city: String?
+    let state: String?
+    let zip: String?
     let areaAccess: [EntrantAccess]
     let foodDiscount: Double
     let merchDiscount: Double
@@ -29,13 +29,15 @@ class Employee: Worker, Discount {
     
     init(firstName: String?, lastName: String?, address: String?, city: String?, state: String?, zip: String?, birthday: String?, employeeType: EmployeeType, projectNumber: String?) throws {
         
-        guard projectNumber != "" else {throw UserError.missingProjectNumber }
+        guard projectNumber != "" else { throw UserError.missingProjectNumber }
         
         guard let firstName = firstName, let lastName = lastName else { throw UserError.missingFullName }
         guard firstName != "", lastName != "" else { throw UserError.missingFullName }
         
-        guard let address = address, let city = city, let state = state, let zip = zip else { throw UserError.missingFullAddress }
+        guard let address = address, let city = city, let state = state else { throw UserError.missingFullAddress }
         guard address != "", city != "", state != "", zip != "" else { throw UserError.missingFullAddress }
+        
+        guard zip != nil else { throw UserError.zipCodeIncorrect }
         
         
         self.firstName = firstName
@@ -103,7 +105,7 @@ class Employee: Worker, Discount {
             }
             
             
-            
+        
             
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
