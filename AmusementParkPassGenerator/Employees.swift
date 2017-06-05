@@ -104,9 +104,6 @@ class Employee: Discount {
                 throw UserError.wrongProjectNumber
             }
             
-            
-        
-            
             self.foodDiscount = 0.0
             self.merchDiscount = 0.0
             
